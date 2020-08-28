@@ -2772,7 +2772,7 @@ Dibuat Oleh : *Alif Putra Darmawan*
 • *!prepayer* [TEXT1] [TEXT2]
 • *!lolmaker* [AZ WhatsApp Bot] NAMAMU
 • *!over* [AZ WhatsApp Bot] NAMAMU
-• !anmaker* [AZ WhatsApp Bot ] TEXTMU
+• *!anmaker* [AZ WhatsApp Bot ] TEXTMU
 • *!elloin* Namamu
 • *!spop* Namamu
 
