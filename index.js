@@ -1890,6 +1890,24 @@ exec('wget "' + text + '" -O mp4/'+ namafile +'.mp4', (error, stdout, stderr) =>
    
    
   } 
+	} else if (msg.body.startsWith('!ig ')) {
+		const get = require('got')
+		var param = msg.body.substring(msg.body.indexOf(' '), msg.body.length);
+		sv = param.split(' ')[1].split('?igshid=')[1]
+		const resp = await get.get('https://villahollanda.com/api.php?url='+ param).json()
+		console.log(resp)
+		if (resp.mediatype == 'photo') {
+			var ext = '.png';
+		} else {
+			var ext = '.mp4';
+		}
+		const dl = new DownloaderHelper(resp.descriptionc, __dirname, { fileName: `./ig/${sv}${ext}` })
+		console.log(dl.getStats)
+		dl.on('end', () => console.log('Download completed'))
+		await dl.start()
+		const media = MessageMedia.fromFilePath(`./ig/${sv}${ext}`)
+		await chat.sendMessage(media)
+
   else if (msg.body.startsWith("!igp ")) {
     msg.reply(`*Hai, Kita Proses Dulu Ya . . .*`);
     let link = msg.body.split(" ")[1];
