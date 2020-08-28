@@ -1782,6 +1782,21 @@ exec('wget "' + text + '" -O mp4/'+ namafile +'.jpg', (error, stdout, stderr) =>
    
    
   } 
+    } else if (msg.body.startsWith("lirik ")) {
+		const lagu = msg.body.slice(7)
+		const kyaa = lagu.replace(/ /g, '+')
+		const response = await fetch('http://scrap.terhambar.com/lirik?word='+kyaa)
+		if (!response.ok) throw new Error(`unexpected response ${response.statusText}`);
+		const json = await response.json()
+		if (json.status) await msg.reply(`Lirik lagu ${lagu.replace('-',' ')} \n\n\n${json.result.lirik}`)
+	} else if (msg.body.startsWith("!bapac ")) {
+		const bap = msg.body.slice(7)
+		const bapac = bap.replace(/ /g, '+')
+		const response = await fetch('https://api.terhambar.com/bpk?kata='+bapac)
+		if (!response.ok) throw new Error(`unexpected response ${response.statusText}`)
+		const json = await response.json()
+		if (json.status) await msg.reply(`${json.text}`)
+
 else if (msg.body.startsWith("!brainly ")) {
 var hh = msg.body.split("!brainly ")[1]
 var tanya = hh.replace(/ /g, "%20");
