@@ -734,6 +734,71 @@ client.sendMessage(media);
    
   })();
  }
+ else if (msg.body.startsWith("!pornhub")) {
+	 msg.reply("_Sedang di proses_ *NO SPAM*")
+	  var h = msg.body.split("!pornhub ")[1];
+	 var nama = h.split("] ")[1];
+	 var kata1 = h.split("[")[1].split("]")[0];
+	 	const { exec } = require("child_process");
+
+  (async () => {
+    const browser = await puppeteer.launch({
+      headless: false,
+
+    });
+    const page = await browser.newPage();
+    await page
+      .goto("https://en.ephoto360.com/create-pornhub-style-logos-online-free-549.html", {
+        waitUntil: "networkidle2",
+      })
+      .then(async () => {
+		  await page.type("#text-0", nama);
+
+     await page.type("#text-1", kata1);
+		await page.click("#submit");
+		await new Promise(resolve => setTimeout(resolve, 10000));
+        try {
+         
+          await page.waitForSelector(
+            "#link-image"
+          );
+          const element = await page.$(
+         "div.thumbnail > img"
+          );
+          const text = await (await element.getProperty("src")).jsonValue();
+         console.log(text);
+
+        exec('wget "' + text + '" -O mp4/ff.jpg', (error, stdout, stderr) => {
+  const media = MessageMedia.fromFilePath('mp4/ff.jpg');
+
+	chat.sendMessage(media);
+	if (error) {
+        console.log(`error: ${error.message}`);
+        return;
+    }
+    if (stderr) {
+        console.log(`stderr: ${stderr}`);
+        return;
+    }
+
+    console.log(`stdout: ${stdout}`);
+});
+          browser.close();
+        } catch (error) {
+          console.log(error);
+       
+
+        }
+      })
+      .catch((err) => {
+        console.log(error);
+    
+      });
+	 
+	 
+  })();
+ }
+
    else if (msg.body.startsWith("!spop ")) {
    msg.reply("_Mohon Menunggu Juragan_")
     var h = msg.body.split("!spop ")[1];
@@ -2833,13 +2898,14 @@ Dibuat Oleh : *Alif Putra Darmawan*
 • *!tatto* Namamu
 • *!goldplay* Namamu
 • *!arum* Namamu
+• *!elloin* Namamu
+• *!spop* Namamu
 • *!prepayer* [TEXT1] [TEXT2]
 • *!lolmaker* [AZ WhatsApp Bot] NAMAMU
 • *!over* [AZ WhatsApp Bot] NAMAMU
 • *!anmaker* [AZ WhatsApp Bot ] TEXTMU
-• *!elloin* Namamu
-• *!spop* Namamu
 • *!marvel* [NAMAMU] VVIP-AZ
+• *!pornhub* [TEXT1] TEXT2
 
 ✨ Note : Dilarang Menggunakan Karakter Emoticon Atau Symbol Dalam Pembuatan Logo Maker Bot Ini.
 
