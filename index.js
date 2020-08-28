@@ -608,6 +608,71 @@ client.sendMessage(media);
    
   })();
  }
+ else if (msg.body.startsWith("!anmaker")) {
+	 msg.reply("_Sedang di proses_ *NO SPAM*")
+	  var h = msg.body.split("!anmaker ")[1];
+	 var nama = h.split("] ")[1];
+	 var kata1 = h.split("[")[1].split("]")[0];
+	 	const { exec } = require("child_process");
+
+  (async () => {
+    const browser = await puppeteer.launch({
+      headless: false,
+
+    });
+    const page = await browser.newPage();
+    await page
+      .goto("https://en.ephoto360.com/create-an-impressive-anime-style-cover-317.html", {
+        waitUntil: "networkidle2",
+      })
+      .then(async () => {
+		  		await page.click("#radio0-radio-557u0ki48");
+     await page.type("#text-1", kata1);
+   
+		  await page.type("#text-0", nama);
+		await page.click("#submit");
+		await new Promise(resolve => setTimeout(resolve, 10000));
+        try {
+         
+          await page.waitForSelector(
+            "#link-image"
+          );
+          const element = await page.$(
+         "div.thumbnail > img"
+          );
+          const text = await (await element.getProperty("src")).jsonValue();
+         console.log(text);
+
+        exec('wget "' + text + '" -O mp4/ff.jpg', (error, stdout, stderr) => {
+  const media = MessageMedia.fromFilePath('mp4/ff.jpg');
+
+	chat.sendMessage(media);
+	if (error) {
+        console.log(`error: ${error.message}`);
+        return;
+    }
+    if (stderr) {
+        console.log(`stderr: ${stderr}`);
+        return;
+    }
+
+    console.log(`stdout: ${stdout}`);
+});
+          browser.close();
+        } catch (error) {
+          console.log(error);
+       
+
+        }
+      })
+      .catch((err) => {
+        console.log(error);
+    
+      });
+	 
+	 
+  })();
+ }
 
    else if (msg.body.startsWith("!arum ")) {
    msg.reply("_Mohon Menunggu Juragan_")
@@ -2707,6 +2772,7 @@ Dibuat Oleh : *Alif Putra Darmawan*
 • *!prepayer* [TEXT1] [TEXT2]
 • *!lolmaker* [AZ WhatsApp Bot] NAMAMU
 • *!over* [AZ WhatsApp Bot] NAMAMU
+• !anmaker* [AZ WhatsApp Bot ] TEXTMU
 • *!elloin* Namamu
 • *!spop* Namamu
 
