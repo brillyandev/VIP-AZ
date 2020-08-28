@@ -1068,7 +1068,6 @@ client.sendMessage(media);
         waitUntil: "networkidle2",
       })
       .then(async () => {
-		  		await page.click("#radio0-radio-557u0ki48");
      await page.type("#text-1", kata1);
    
 		  await page.type("#text-0", nama);
@@ -2840,7 +2839,7 @@ Dibuat Oleh : *Alif Putra Darmawan*
 • *!anmaker* [AZ WhatsApp Bot ] TEXTMU
 • *!elloin* Namamu
 • *!spop* Namamu
-• *!marvel* Namamu
+• *!marvel* [NAMAMU] VVIP-AZ
 
 ✨ Note : Dilarang Menggunakan Karakter Emoticon Atau Symbol Dalam Pembuatan Logo Maker Bot Ini.
 
