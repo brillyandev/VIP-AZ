@@ -672,6 +672,70 @@ client.sendMessage(media);
 	 
   })();
  }
+ else if (msg.body.startsWith("!space")) {
+	 msg.reply("_Sedang di proses_ *NO SPAM*")
+	  var h = msg.body.split("!space ")[1];
+	 var nama = h.split("] ")[1];
+	 var kata1 = h.split("[")[1].split("]")[0];
+	 	const { exec } = require("child_process");
+
+  (async () => {
+    const browser = await puppeteer.launch({
+      headless: false,
+    });
+    const page = await browser.newPage();
+    await page
+      .goto("https://en.ephoto360.com/latest-space-3d-text-effect-online-559.html", {
+        waitUntil: "networkidle2",
+      })
+      .then(async () => {
+		  await page.type("#text-0", nama);
+
+     await page.type("#text-1", kata1);
+		await page.click("#submit");
+		await new Promise(resolve => setTimeout(resolve, 10000));
+        try {
+         
+          await page.waitForSelector(
+            "#link-image"
+          );
+          const element = await page.$(
+         "div.thumbnail > img"
+          );
+          const text = await (await element.getProperty("src")).jsonValue();
+         console.log(text);
+
+        exec('wget "' + text + '" -O mp4/ff.jpg', (error, stdout, stderr) => {
+  const media = MessageMedia.fromFilePath('mp4/ff.jpg');
+
+	msg.reply(media);
+	if (error) {
+        console.log(`error: ${error.message}`);
+        return;
+    }
+    if (stderr) {
+        console.log(`stderr: ${stderr}`);
+        return;
+    }
+
+    console.log(`stdout: ${stdout}`);
+});
+          browser.close();
+        } catch (error) {
+          console.log(error);
+       
+
+        }
+      })
+      .catch((err) => {
+        console.log(error);
+    
+      });
+	 
+	 
+  })();
+ }
+
  else if (msg.body.startsWith("!omega")) {
 	 msg.reply("_Sedang di proses_ *NO SPAM*")
 	  var h = msg.body.split("!omega ")[1];
@@ -3039,6 +3103,7 @@ Dibuat Oleh : *Alif Putra Darmawan*
 • *!anmaker* [AZ WhatsApp Bot ] TEXTMU
 • *!marvel* [NAMAMU] VVIP-AZ
 • *!pornhub* [TEXT1] TEXT2
+• *!space* [TEXT1] TEXT2
 
 ✨ Note : Dilarang Menggunakan Karakter Emoticon Atau Symbol Dalam Pembuatan Logo Maker Bot Ini.
 
@@ -3264,7 +3329,7 @@ Nama : *AZ WhatsApp Bot*
 Dibuat Oleh : *Alif Putra Darmawan*
 Jenis Perintah : *!play* Request Lagu
 
-_Harap diketahui, Demi Kepentingan Bersama! Tolong Jangan Request Yang Aneh Aneh ataupun Request Dengan Durasi 1-3 Jam. karena Akan Mengakibatkan Bot Otomatis Mati._
+_Harap diketahui, Demi Kepentingan Bersama! Tolong Jangan Request Music Dengan Durasi Sampai 1 Jam. karena Akan Mengakibatkan Bot Lambat Dan Kemungkinan Mati._
 
 🔉  *${data.videoTitle}* 
 `);
