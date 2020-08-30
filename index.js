@@ -175,7 +175,7 @@ client.on('group_leave', async (notification) => {
     console.log('leave', notification);
     const botno = notification.chatId.split('@')[0];
     let number = await notification.id.remote;
-    client.sendMessage(number, `Selamat tinggal kawan`);
+    client.sendMessage(number, `_Kok Keluar :(_`);
   
     const chats = await client.getChats();
     for (i in chats) {
@@ -228,11 +228,11 @@ client.on("message", async msg => {
   participant
   `)
 const botTol = () => {
-        msg.reply('*Akses Untuk Menu Admin Ditolak*')
+        msg.reply('*Akses Ditolak*')
         return
     }
     const botTol2 = () => {
-        msg.reply(`*Akses ini hanya untuk di grup saja bro*`)
+        msg.reply(`*Akses Dilarang*`)
         return
     }
 
@@ -343,7 +343,7 @@ const botTol = () => {
   }
   else if (msg.body == "!ping") {
     // Send a new message as a reply to the current one
-    msg.reply("_Sudah Aktif_");
+    msg.reply("*Status* : _Bot Activated_");
   }else if (msg.body.startsWith("!anime")) {
 var fs = require('fs');
 var files = fs.readdirSync('./kwpin')
