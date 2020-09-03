@@ -16,7 +16,7 @@ if (fs.existsSync(SESSION_FILE_PATH)) {
 client = new Client({   
     
        puppeteer: {
-        executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe',
+        executablePath: 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe',
         headless: true,
     args: [
       "--log-level=3", // fatal only
@@ -2565,7 +2565,7 @@ client.sendMessage(
 });
 }
 
-else if (msg.body.startsWith("!kata-cinta")) {
+else if (msg.body.startsWith("!bucin")) {
 const request = require('request');
 request.get({
   headers: {
@@ -2970,6 +2970,9 @@ Berikut daftar perintah yang bisa digunakan :
 • *4* : Menu Cek Resi
 • *5* : Tools Logo Maker
 • *donasi* : Support AZ WhatsApp Agar Tetap Aktif
+
+🌟 Jam Online AZ WhatsApp Bot :
+  [ JAM 12 MALAM SAMPAI JAM 9 PAGI ]
 `);
 
 }
