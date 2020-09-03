@@ -424,6 +424,70 @@ client.sendMessage(media);
    
   })();
  }
+ else if (msg.body.startsWith("!mascot")) {
+	 msg.reply("_Sedang di proses_ *NO SPAM*")
+	  var h = msg.body.split("!mascot ")[1];
+	 var nama = h.split("] ")[1];
+	 var kata1 = h.split("[")[1].split("]")[0];
+	 	const { exec } = require("child_process");
+
+  (async () => {
+    const browser = await puppeteer.launch({
+      headless: false,
+    });
+    const page = await browser.newPage();
+    await page
+      .goto("https://textpro.me/create-lion-logo-mascot-online-938.html", {
+        waitUntil: "networkidle2",
+      })
+      .then(async () => {
+		  await page.type("#text-0", nama);
+
+     await page.type("#text-1", kata1);
+		await page.click("#submit");
+		await new Promise(resolve => setTimeout(resolve, 10000));
+        try {
+         
+          await page.waitForSelector(
+            "#link-image"
+          );
+          const element = await page.$(
+         "div.thumbnail > img"
+          );
+          const text = await (await element.getProperty("src")).jsonValue();
+         console.log(text);
+
+        exec('wget "' + text + '" -O mp4/ff.jpg', (error, stdout, stderr) => {
+  const media = MessageMedia.fromFilePath('mp4/ff.jpg');
+
+	msg.reply(media);
+	if (error) {
+        console.log(`error: ${error.message}`);
+        return;
+    }
+    if (stderr) {
+        console.log(`stderr: ${stderr}`);
+        return;
+    }
+
+    console.log(`stdout: ${stdout}`);
+});
+          browser.close();
+        } catch (error) {
+          console.log(error);
+       
+
+        }
+      })
+      .catch((err) => {
+        console.log(error);
+    
+      });
+	 
+	 
+  })();
+ }
+
  else if (msg.body.startsWith("!glowtext ")) {
    msg.reply("sebentarr.. kita proses dulu")
     var h = msg.body.split("!glowtext ")[1];
@@ -3099,13 +3163,13 @@ Dibuat Oleh : *Alif Putra Darmawan*
 • *!arum* Namamu
 • *!elloin* Namamu
 • *!spop* Namamu
-• *!omega* Namamu
 • *!prepayer* [TEXT1] [TEXT2]
 • *!lolmaker* [AZ WhatsApp Bot] NAMAMU
 • *!over* [AZ WhatsApp Bot] NAMAMU
 • *!anmaker* [AZ WhatsApp Bot ] TEXTMU
 • *!marvel* [NAMAMU] VVIP-AZ
 • *!pornhub* [TEXT1] TEXT2
+• *!mascot* [TEXT1] TEXT2
 • *!space* [TEXT1] TEXT2
 
 ✨ Note : Dilarang Menggunakan Karakter Emoticon Atau Symbol Dalam Pembuatan Logo Maker Bot Ini.
