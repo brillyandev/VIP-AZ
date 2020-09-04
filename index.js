@@ -2963,44 +2963,6 @@ bot ini
 
   `);
   }
-                            case prefix+'cekresi':
-                                return reply('Website penyedia layanan sedang Maintenance :D')
-                                if(isLimit(serial)) return
-                                if(!args.lenght >= 3 ) return
-                                let kurir = args[2];
-                                let resi = args[1];
-                                let courir = ['jne', 'pos', 'jnt', 'sicepat', 'tiki', 'anteraja', 'wahana', 'ninja', 'lion', 'lek'];
-                                let chkKurir = courir.includes(kurir.toLowerCase());
-                                if (chkKurir === true) {
-                                    axios.get(`https://api.binderbyte.com/cekresi?awb=${resi}&api_key=613365e93ec2e9891024176f1b7ee60d3714256b27b1c43dbc82518383323d3c&courier=${kurir}`).then((res) => {
-                                        if (res.data.result === true) {
-                                            client.sendText(from,'Tunggu sebentar ya kaka :D')
-                                            let bn = res.data.data;
-                                            let hasil = `╭──────[ Informasi Tracking ]──────\n├> Kurir   : ${bn.courier}\n├> Resi    : ${bn.waybill}\n├> Dikirim : ${bn.shipped}`;
-                                            if (bn.received !== '' || bn.received !== null || bn.received !== undefined || bn.received !== '') {
-                                                hasil += `\n├> Diterima Oleh : ${bn.received.name}\n├> Tanggal : ${bn.received.date}\n├> Status : ${bn.received.status}`;
-                                            }
-                                            hasil += `\n├────────────────\n├> Tracking : `;
-                                            let track = bn.tracking;
-                                            Object.keys(track).reverse().forEach(function (i) {
-                                                hasil += `\n├────────────────\n├> Tanggal   : ${track[i].date}\n├> Deskripsi : ${track[i].desc}\n├> Status    : ${track[i].status}\n├────────────────`;
-                                            });
-                                            hasil += '\n╰──[ AZ WhatsApp Bot ]───';
-                                            client.sendText(from,hasil);
-                                            limitAdd(serial);
-                                        } else {
-                                            client.sendText(from,'Kode resi invalid / kadaluarsa');
-                                        }
-                                    }).catch(err => {
-                                        console.log(err)
-                                        client.sendText(from,'Server sedang dalam masalah, coba lagi nanti');
-                                    })
-                                } else {
-                                    client.sendText(from,`Kurir ${kurir} tidak ada atau penulisan salah!`);
-                                    client.sendText(from,'Contoh kurir : jne, pos, jnt, sicepat, tiki, anteraja, wahana, ninja, lion, lek');
-                                }
-                                break
-
  else if (msg.body == "hahaha") {
 const cheerio = require('cheerio');
 const request = require('request');
