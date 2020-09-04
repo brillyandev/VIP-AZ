@@ -175,7 +175,7 @@ client.on('group_leave', async (notification) => {
     console.log('leave', notification);
     const botno = notification.chatId.split('@')[0];
     let number = await notification.id.remote;
-    client.sendMessage(number, `_Kok Keluar :(_`);
+    client.sendMessage(number, `_Njer kok keluar :(_`);
   
     const chats = await client.getChats();
     for (i in chats) {
