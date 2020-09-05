@@ -175,7 +175,7 @@ client.on('group_leave', async (notification) => {
     console.log('leave', notification);
     const botno = notification.chatId.split('@')[0];
     let number = await notification.id.remote;
-    client.sendMessage(number, `_Njer kok keluar :(_`);
+    client.sendMessage(number, `[ *INFO* ] : _BANNED PERMANENT!_`);
   
     const chats = await client.getChats();
     for (i in chats) {
@@ -195,7 +195,7 @@ client.on('group_leave', async (notification) => {
         if (participant.isAdmin) {
             //admins.push(participant.id.user);
             admins[contact.pushname] = participant.id.user;
-            client.sendMessage(participant.id._serialized, 'Eh bro, ada yang keluar dari grup wkwkw');
+            client.sendMessage(participant.id._serialized, '*Notification* : Member Baru Saja Keluar Dari Grup !');
             const media = MessageMedia.fromFilePath('./test/test.pdf');
             client.sendMessage(participant.id._serialized, media);
         }
@@ -280,7 +280,7 @@ const botTol = () => {
                 const contact = await msg.getContact();
                 const title = msg.mentionedIds[0]
                 chat.promoteParticipants([`${title}`])
-                chat.sendMessage(`[:] @${title.replace('@c.us', '')} sekarang anda adalah admin sob 🔥`)
+                chat.sendMessage(`*INFO* : @${title.replace('@c.us', '')} Berhasil Dijadikan Admin Grup !`)
             } else {
                 botTol()
             }
@@ -306,7 +306,7 @@ const botTol = () => {
                     chat.addParticipants([`${title.replace('0', '62')}@c.us`])
                     msg.reply(`Selamat datang @${title}! Gunakan Command *!menu* untuk melihat daftar perintah.`)
                 } else {
-                    msg.reply('[:] Format nomor harus 0821xxxxxx')
+                    msg.reply('*INFO* : Format nomor harus 0821xxxxxx')
                 }
             } else {
                 botTol()
@@ -3115,8 +3115,11 @@ Dibuat Oleh : *Alif Putra Darmawan*
 
 -=[ 🎶 Download Music 🎶 ]=-
 
-• *!play* Request Judul Lagu
+• *!play* Judul Lagu
+
 • *!ytmp3* Link Video Music Youtube
+
+• *!yt* Link Video Youtube
 
 📣 _Dilarang Request Lagu Lebih Dari 1 Jam, Demi Kebaikan Bersama :)_
 
@@ -3207,12 +3210,16 @@ Nama : *AZ-WhatsApp Bot*
 Dibuat Oleh : *Alif Putra Darmawan*
 Versi : *1.2*
 
+-=[ *Tracking Resi Barang* ]=-
+
 • *!jnt kode resi*
 • *!jne kode resi*
 • *!sicepat kode resi*
 • *!sap kode resi*
 • *!pcp kode resi*
 • *!lex kode resi*
+
+*AZ WhatsApp Bot © 2020*
     `);
   }
   else if (msg.body == "#codebahasa") {
@@ -3311,7 +3318,7 @@ Yiddish                 |  yi
 Yoruba                  |  yo
 Zulu                      |  zu
       ` );
-  } else if (msg.body == "out sana") {
+  } else if (msg.body == "/out") {
     // Leave the group
     let chat = await msg.getChat();
     if (chat.isGroup) {
