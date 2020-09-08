@@ -16,7 +16,7 @@ if (fs.existsSync(SESSION_FILE_PATH)) {
 client = new Client({   
     
        puppeteer: {
-        executablePath: 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe',
+        executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe',
         headless: true,
     args: [
       "--log-level=3", // fatal only
@@ -138,7 +138,7 @@ client.on('group_join', async (notification) => {
     console.log('join', notification);
     const botno = notification.chatId.split('@')[0];
     let number = await notification.id.remote;
-    client.sendMessage(number, `Halo, selamat bergabung di grup ini yaa.. untuk melihat daftar perintah bot silahkan reply *!menu* .`);
+    client.sendMessage(number, `[ *INFO* ] : _Member baru saja bergabung di grup ini, Gunakan !menu untuk melihat daftar perintah AZ WhatsApp Bot._ `);
   
     const chats = await client.getChats();
     for (i in chats) {
@@ -158,7 +158,7 @@ client.on('group_join', async (notification) => {
         if (participant.isAdmin) {
             //admins.push(participant.id.user);
             admins[contact.pushname] = participant.id.user;
-            client.sendMessage(participant.id._serialized, 'Eh bro, barusan ada member baru di grup.');
+            client.sendMessage(participant.id._serialized, '*Notification* : Member Baru Saja Bergabung Dari Grup !');
             const media = MessageMedia.fromFilePath('./test/test.pdf');
             client.sendMessage(participant.id._serialized, media);
         }
@@ -257,7 +257,7 @@ const botTol = () => {
             const contact = await client.getContactById(participant.id._serialized);
 
             mentions.push(contact);
-      text += "Hay Beb ";
+      text += "Halo sayang 💕 ";
             text += `@${participant.id.user} `;
       text += "\n";
         }
@@ -3119,9 +3119,8 @@ Dibuat Oleh : *Alif Putra Darmawan*
 
 • *!ytmp3* Link Video Music Youtube
 
-• *!yt* Link Video Youtube
-
 📣 _Dilarang Request Lagu Lebih Dari 1 Jam, Demi Kebaikan Bersama :)_
+💌 *Melanggar Rules* Banned Permanent!
 
 *AZ WhatsApp Bot © 2020*
 `);
