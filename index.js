@@ -228,11 +228,11 @@ client.on("message", async msg => {
   participant
   `)
 const botTol = () => {
-        msg.reply('*Akses Ditolak*')
+        msg.reply('*INFO* : Akses ditolak, fitur ini khusus pembuat grup ini !')
         return
     }
     const botTol2 = () => {
-        msg.reply(`*Akses Dilarang*`)
+        msg.reply(`*INFO* : Akses ditolak, fitur ini khusus pembuat grup ini !`)
         return
     }
 
@@ -1118,12 +1118,12 @@ client.sendMessage(media);
    
   })();
  }
- else if (msg.body.startsWith("!retro")) {
-	 msg.reply("_Sedang di proses_ *NO SPAM*")
-	  var h = msg.body.split("!retro ")[1];
-	 var nama = h.split("] ")[1];
-	 var kata1 = h.split("[")[1].split("]")[0];
-	 	const { exec } = require("child_process");
+ else if (msg.body.startsWith("!alok ")) {
+   msg.reply("[ *INFO* ] : _Banner Alok Sedang Dibuat_")
+    var h = msg.body.split("!alok ")[1];
+   var nama = h.split("] ")[1];
+   var kata1 = h.split("[")[1].split("]")[0];
+    const { exec } = require("child_process");
 
   (async () => {
     const browser = await puppeteer.launch({
@@ -1132,18 +1132,15 @@ client.sendMessage(media);
     });
     const page = await browser.newPage();
     await page
-      .goto("https://en.ephoto360.com/free-retro-neon-text-effect-online-538.html", {
+      .goto("https://en.ephoto360.com/create-free-fire-facebook-cover-online-567.html", {
         waitUntil: "networkidle2",
       })
       .then(async () => {
-		  		await page.click("#radio1-radio-46f217383f194195a2fe05ef22300984");
-     await page.type("#text-1", kata1);
-   
-		  await page.type("#text-0", nama);
-     await page.type("#text-2", kata2);
+          await page.click("#radio0-radio-128c11e9903a46c8920f545e8c5dcf44");   
+      await page.type("#text-0", kata1);
 
-		await page.click("#submit");
-		await new Promise(resolve => setTimeout(resolve, 10000));
+    await page.click("#submit");
+    await new Promise(resolve => setTimeout(resolve, 10000));
         try {
          
           await page.waitForSelector(
@@ -1158,8 +1155,8 @@ client.sendMessage(media);
         exec('wget "' + text + '" -O mp4/ff.jpg', (error, stdout, stderr) => {
   const media = MessageMedia.fromFilePath('mp4/ff.jpg');
 
-	chat.sendMessage(media);
-	if (error) {
+  msg.reply(media);
+  if (error) {
         console.log(`error: ${error.message}`);
         return;
     }
@@ -1181,10 +1178,11 @@ client.sendMessage(media);
         console.log(error);
     
       });
-	 
-	 
+   
+   
   })();
  }
+
 
  else if (msg.body.startsWith("!over ")) {
 	 msg.reply("_Sedang di proses_ *NO SPAM*")
