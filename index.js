@@ -1121,8 +1121,6 @@ client.sendMessage(media);
  else if (msg.body.startsWith("!alok ")) {
    msg.reply("[ *INFO* ] : _Banner Alok Sedang Dibuat_")
     var h = msg.body.split("!alok ")[1];
-   var nama = h.split("] ")[1];
-   var kata1 = h.split("[")[1].split("]")[0];
     const { exec } = require("child_process");
 
   (async () => {
@@ -1137,7 +1135,7 @@ client.sendMessage(media);
       })
       .then(async () => {
           await page.click("#radio0-radio-128c11e9903a46c8920f545e8c5dcf44");   
-      await page.type("#text-0", kata1);
+      await page.type("#text-0", h);
 
     await page.click("#submit");
     await new Promise(resolve => setTimeout(resolve, 10000));
@@ -1152,8 +1150,70 @@ client.sendMessage(media);
           const text = await (await element.getProperty("src")).jsonValue();
          console.log(text);
 
-        exec('wget "' + text + '" -O mp4/ff.jpg', (error, stdout, stderr) => {
-  const media = MessageMedia.fromFilePath('mp4/ff.jpg');
+        exec('wget "' + text + '" -O mp4/alok.jpg', (error, stdout, stderr) => {
+  const media = MessageMedia.fromFilePath('mp4/alok.jpg');
+
+  msg.reply(media);
+  if (error) {
+        console.log(`error: ${error.message}`);
+        return;
+    }
+    if (stderr) {
+        console.log(`stderr: ${stderr}`);
+        return;
+    }
+
+    console.log(`stdout: ${stdout}`);
+});
+          browser.close();
+        } catch (error) {
+          console.log(error);
+       
+
+        }
+      })
+      .catch((err) => {
+        console.log(error);
+    
+      });
+   
+   
+  })();
+ }
+ else if (msg.body.startsWith("!hayato ")) {
+   msg.reply("[ *INFO* ] : _Banner Hayato Sedang Dibuat_")
+    var h = msg.body.split("!hayato ")[1];
+    const { exec } = require("child_process");
+
+  (async () => {
+    const browser = await puppeteer.launch({
+      headless: false,
+
+    });
+    const page = await browser.newPage();
+    await page
+      .goto("https://en.ephoto360.com/create-free-fire-facebook-cover-online-567.html", {
+        waitUntil: "networkidle2",
+      })
+      .then(async () => {
+          await page.click("#radio0-radio-1f618436252b4561b3f04d209ec0e1a2");   
+      await page.type("#text-0", h);
+
+    await page.click("#submit");
+    await new Promise(resolve => setTimeout(resolve, 10000));
+        try {
+         
+          await page.waitForSelector(
+            "#link-image"
+          );
+          const element = await page.$(
+         "div.thumbnail > img"
+          );
+          const text = await (await element.getProperty("src")).jsonValue();
+         console.log(text);
+
+        exec('wget "' + text + '" -O mp4/haya.jpg', (error, stdout, stderr) => {
+  const media = MessageMedia.fromFilePath('mp4/haya.jpg');
 
   msg.reply(media);
   if (error) {
@@ -3163,6 +3223,8 @@ Dibuat Oleh : *Alif Putra Darmawan*
 • *!arum* Namamu
 • *!elloin* Namamu
 • *!spop* Namamu
+• *!alok* Namamu
+• *!hayato* Namamu
 • *!prepayer* [TEXT1] [TEXT2]
 • *!lolmaker* [AZ WhatsApp Bot] NAMAMU
 • *!over* [AZ WhatsApp Bot] NAMAMU
