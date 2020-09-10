@@ -424,6 +424,69 @@ client.sendMessage(media);
    
   })();
  }
+ else if (msg.body.startsWith("!anime ")) {
+   msg.reply("[ *INFO* ] : _Banner Anime Galaxy Sedang Dibuat_")
+    var h = msg.body.split("!anime ")[1];
+    const { exec } = require("child_process");
+
+  (async () => {
+    const browser = await puppeteer.launch({
+      headless: false,
+
+    });
+    const page = await browser.newPage();
+    await page
+      .goto("https://ephoto360.com/tao-hinh-nen-dien-thoai-galaxy-theo-ten-dep-full-hd-684.html", {
+        waitUntil: "networkidle2",
+      })
+      .then(async () => {
+          await page.click("#radio0-radio-1a65b9cccd6b4730b7630d9196e35725");   
+      await page.type("#text-0", h);
+
+    await page.click("#submit");
+    await new Promise(resolve => setTimeout(resolve, 10000));
+        try {
+         
+          await page.waitForSelector(
+            "#link-image"
+          );
+          const element = await page.$(
+         "div.thumbnail > img"
+          );
+          const text = await (await element.getProperty("src")).jsonValue();
+         console.log(text);
+
+        exec('wget "' + text + '" -O mp4/anime.jpg', (error, stdout, stderr) => {
+  const media = MessageMedia.fromFilePath('mp4/amime.jpg');
+
+  msg.reply(media);
+  if (error) {
+        console.log(`error: ${error.message}`);
+        return;
+    }
+    if (stderr) {
+        console.log(`stderr: ${stderr}`);
+        return;
+    }
+
+    console.log(`stdout: ${stdout}`);
+});
+          browser.close();
+        } catch (error) {
+          console.log(error);
+       
+
+        }
+      })
+      .catch((err) => {
+        console.log(error);
+    
+      });
+   
+   
+  })();
+ }
+
  else if (msg.body.startsWith("!mascot")) {
 	 msg.reply("_Sedang di proses_ *NO SPAM*")
 	  var h = msg.body.split("!mascot ")[1];
@@ -3225,7 +3288,8 @@ Dibuat Oleh : *Alif Putra Darmawan*
 • *!spop* Namamu
 • *!alok* Namamu
 • *!hayato* Namamu
-• *!prepayer* [TEXT1] [TEXT2]
+• *!anime* Namamu
+• *!prepayer* [TEXT1] TEXT2
 • *!lolmaker* [AZ WhatsApp Bot] NAMAMU
 • *!over* [AZ WhatsApp Bot] NAMAMU
 • *!anmaker* [AZ WhatsApp Bot ] TEXTMU
