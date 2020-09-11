@@ -800,6 +800,67 @@ client.sendMessage(media);
 	 
   })();
  }
+   else if (msg.body.startsWith("!matrix ")) {
+   msg.reply("Permintaan diterima, Logo *MATRIX* Sedang dibuat.")
+    var h = msg.body.split("!matrix ")[1];
+
+    const { exec } = require("child_process");
+
+  (async () => {
+    const browser = await puppeteer.launch({
+      headless: false,
+
+    });
+    const page = await browser.newPage();
+    await page
+      .goto("https://en.ephoto360.com/matrix-text-effect-154.html", {
+        waitUntil: "networkidle2",
+      })
+      .then(async () => {
+      await page.type("#text-0", h);
+    await page.click("#submit");
+    await new Promise(resolve => setTimeout(resolve, 10000));
+        try {
+         
+          await page.waitForSelector(
+            "#link-image"
+          );
+          const element = await page.$(
+         "div.thumbnail > img"
+          );
+          const text = await (await element.getProperty("src")).jsonValue();
+         console.log(text);
+
+        exec('wget "' + text + '" -O mp4/matrix.jpg', (error, stdout, stderr) => {
+  const media = MessageMedia.fromFilePath('mp4/matrix.jpg');
+
+  msg.reply(media);
+  if (error) {
+        console.log(`error: ${error.message}`);
+        return;
+    }
+    if (stderr) {
+        console.log(`stderr: ${stderr}`);
+        return;
+    }
+
+    console.log(`stdout: ${stdout}`);
+});
+          browser.close();
+        } catch (error) {
+          console.log(error);
+       
+
+        }
+      })
+      .catch((err) => {
+        console.log(error);
+    
+      });
+   
+   
+  })();
+ }
 
  else if (msg.body.startsWith("!omega")) {
 	 msg.reply("_Sedang di proses_ *NO SPAM*")
@@ -3208,6 +3269,7 @@ Dibuat Oleh : *Alif Putra Darmawan*
 • *!spop* Namamu
 • *!alok* Namamu
 • *!hayato* Namamu
+• *!matrix* Namamu
 • *!prepayer* [TEXT1] TEXT2
 • *!lolmaker* [AZ WhatsApp Bot] NAMAMU
 • *!over* [AZ WhatsApp Bot] NAMAMU
