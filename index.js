@@ -2035,6 +2035,31 @@ else if (msg.body.startsWith('!join ')) {
             msg.reply('That invite code seems to be invalid.');
         }
     }
+else if (msg.body.startsWith("!lirik ")) {
+
+	var get = msg.body.split("!lirik ")[1];
+
+	var artis = get.split("-")[0];
+
+	var lirik = get.split("-")[1];
+
+	const { getLyrics, getSong } = require('genius-lyrics-api');
+
+const options = {
+
+	apiKey: 'rN3QmPYNX4zdy60VX9JB9G1w-gThM1K3q1EbhCpOcOfNZkp_2VzbJ6jwBcfwFU42',
+
+	title: lirik,
+
+	artist: artis,
+
+	optimizeQuery: true
+
+};
+
+}
+
+
   else if (msg.body.startsWith("!wiki ")) {
 const cheerio = require('cheerio');
 const request = require('request');
