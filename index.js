@@ -175,7 +175,7 @@ client.on('group_leave', async (notification) => {
     console.log('leave', notification);
     const botno = notification.chatId.split('@')[0];
     let number = await notification.id.remote;
-    client.sendMessage(number, `[ *INFO* ] : _BANNED PERMANENT!_`);
+    client.sendMessage(number, `[ *INFO* ] : _yang barusan keluar, bot nitip gorengan yaa untuk 1 grup!_`);
   
     const chats = await client.getChats();
     for (i in chats) {
@@ -257,7 +257,7 @@ const botTol = () => {
             const contact = await client.getContactById(participant.id._serialized);
 
             mentions.push(contact);
-      text += "Halo sayang 💕 ";
+      text += "😘😘 ";
             text += `@${participant.id.user} `;
       text += "\n";
         }
