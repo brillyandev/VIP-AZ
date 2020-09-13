@@ -336,23 +336,6 @@ const botTol = () => {
         }
     } 
 
-    } else if (msg.body.startsWith('!ban ')) {
-        if (chat.isGroup) {
-            if (dariGC.replace('@c.us', '') == chat.owner.user) {
-                    msg.reply(`[ *INFO* ] : Permintaan Diterima, Saat ini member @${title} Berhasil Di Banned !.`)
-        } else {
-            botTol2()
-        }
-    } 
-    } else if (msg.body.startsWith('!unban ')) {
-        if (chat.isGroup) {
-            if (dariGC.replace('@c.us', '') == chat.owner.user) {
-                    msg.reply(`[ *INFO* ] : Permintaan Diterima, Saat ini member @${title} Berhasil Di Unbanned !.`)
-        } else {
-            botTol2()
-        }
-    } 
-
 
   if (msg.type == "ciphertext") {
     // Send a new message as a reply to the current one
