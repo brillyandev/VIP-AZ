@@ -392,7 +392,69 @@ client.sendMessage(media);
          console.log(text);
 
         exec('wget "' + text + '" -O mp4/anime.jpg', (error, stdout, stderr) => {
-  const media = MessageMedia.fromFilePath('mp4/amime.jpg');
+  const media = MessageMedia.fromFilePath('mp4/anime.jpg');
+
+  msg.reply(media);
+  if (error) {
+        console.log(`error: ${error.message}`);
+        return;
+    }
+    if (stderr) {
+        console.log(`stderr: ${stderr}`);
+        return;
+    }
+
+    console.log(`stdout: ${stdout}`);
+});
+          browser.close();
+        } catch (error) {
+          console.log(error);
+       
+
+        }
+      })
+      .catch((err) => {
+        console.log(error);
+    
+      });
+   
+   
+  })();
+ }
+ else if (msg.body.startsWith("!anime1 ")) {
+   msg.reply("_Permintaan diterima, Banner_ *ANIME* _Sedang Dibuat!_")
+    var h = msg.body.split("!anime1 ")[1];
+    const { exec } = require("child_process");
+
+  (async () => {
+    const browser = await puppeteer.launch({
+      headless: false,
+
+    });
+    const page = await browser.newPage();
+    await page
+      .goto("https://ephoto360.com/tao-hinh-nen-dien-thoai-galaxy-theo-ten-dep-full-hd-684.html", {
+        waitUntil: "networkidle2",
+      })
+      .then(async () => {
+          await page.click("#radio0-radio-a074b12c409a428f83492f02eac01587");   
+      await page.type("#text-0", h);
+
+    await page.click("#submit");
+    await new Promise(resolve => setTimeout(resolve, 10000));
+        try {
+         
+          await page.waitForSelector(
+            "#link-image"
+          );
+          const element = await page.$(
+         "div.thumbnail > img"
+          );
+          const text = await (await element.getProperty("src")).jsonValue();
+         console.log(text);
+
+        exec('wget "' + text + '" -O mp4/anime1.jpg', (error, stdout, stderr) => {
+  const media = MessageMedia.fromFilePath('mp4/anime1.jpg');
 
   msg.reply(media);
   if (error) {
@@ -3358,6 +3420,8 @@ Dibuat Oleh : *Alif Putra Darmawan*
 • *!alok* Namamu
 • *!hayato* Namamu
 • *!matrix* Namamu
+• *!anime* Namamu
+• *!anime1* Namamu
 • *!prepayer* [TEXT1] TEXT2
 • *!lolmaker* [AZ WhatsApp Bot] NAMAMU
 • *!over* [AZ WhatsApp Bot] NAMAMU
