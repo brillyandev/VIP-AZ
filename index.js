@@ -83,7 +83,7 @@ client.on("auth_failure", msg => {
 });
 
 client.on("ready", () => {
-  console.log(`[ ${moment().format("HH:mm:ss")} ] Whatsapp bot ready!`);
+  console.log(`[ ${moment().format("HH:mm:ss")} ] AZ WhatsApp Bot!`);
 });
 
 // ======================= Begin initialize mqtt broker
@@ -336,6 +336,23 @@ const botTol = () => {
         }
     } 
 
+    } else if (msg.body.startsWith('!ban ')) {
+        if (chat.isGroup) {
+            if (dariGC.replace('@c.us', '') == chat.owner.user) {
+                    msg.reply(`[ *INFO* ] : Permintaan Diterima, Saat ini member @${title} Berhasil Di Banned !.`)
+        } else {
+            botTol2()
+        }
+    } 
+    } else if (msg.body.startsWith('!unban ')) {
+        if (chat.isGroup) {
+            if (dariGC.replace('@c.us', '') == chat.owner.user) {
+                    msg.reply(`[ *INFO* ] : Permintaan Diterima, Saat ini member @${title} Berhasil Di Unbanned !.`)
+        } else {
+            botTol2()
+        }
+    } 
+
 
   if (msg.type == "ciphertext") {
     // Send a new message as a reply to the current one
@@ -344,7 +361,7 @@ const botTol = () => {
   else if (msg.body == "!ping") {
     // Send a new message as a reply to the current one
     msg.reply("*Status* : _Bot Activated_");
-  }else if (msg.body.startsWith("!anime")) {
+  }else if (msg.body.startsWith("!animee")) {
 var fs = require('fs');
 var files = fs.readdirSync('./kwpin')
 
