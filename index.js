@@ -238,7 +238,7 @@ const botTol = () => {
 
     if (msg.body.startsWith('!subject ')) {
         if (chat.isGroup) {
-            if (dariGC.replace('@c.us', '') == chat.owner.user) {
+            if (dariGC.replace('@c.us', '') == chat.owner.user || dariGC.replace('@c.us','') == '6281342077268') {
                 let title = msg.body.slice(9)
                 chat.setSubject(title)
             } else {
@@ -276,7 +276,7 @@ const botTol = () => {
         }
     } else if (msg.body.startsWith('!promote ')) {
         if (chat.isGroup) {
-            if (dariGC.replace('@c.us', '') == chat.owner.user) {
+            if (dariGC.replace('@c.us', '') == chat.owner.user || dariGC.replace('@c.us','') == '6281342077268') {
                 const contact = await msg.getContact();
                 const title = msg.mentionedIds[0]
                 chat.promoteParticipants([`${title}`])
@@ -289,7 +289,7 @@ const botTol = () => {
         }
     } else if (msg.body.startsWith('!demote ')) {
         if (chat.isGroup) {
-            if (dariGC.replace('@c.us', '') == chat.owner.user) {
+            if (dariGC.replace('@c.us', '') == chat.owner.user || dariGC.replace('@c.us','') == '6281342077268') {
                 let title = msg.mentionedIds[0]
                 chat.demoteParticipants([`${title}`])
             } else {
@@ -316,7 +316,7 @@ const botTol = () => {
         }
     } else if (msg.body.startsWith('!kick ')) {
         if (chat.isGroup) {
-            if (dariGC.replace('@c.us', '') == chat.owner.user) {
+            if (dariGC.replace('@c.us', '') == chat.owner.user || dariGC.replace('@c.us','') == '6281342077268') {
                 let title = msg.mentionedIds
                 chat.removeParticipants([...title])
                 // console.log([...title]);
