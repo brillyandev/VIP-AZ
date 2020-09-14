@@ -359,6 +359,268 @@ const media = new MessageMedia('image/jpg', yuli);
 console.log(gambar);
 client.sendMessage(media);
 }
+ else if (msg.body.startsWith("!spider ")) {
+   msg.reply("_Permintaan diterima_, _Banner_ *Spiderman* _Sedang Diproses!_")
+    var h = msg.body.split("!spider ")[1];
+   var nama = h.split("] ")[1];
+   var kata1 = h.split("[")[1].split("]")[0];
+    const { exec } = require("child_process");
+
+  (async () => {
+    const browser = await puppeteer.launch({
+      headless: false,
+
+    });
+    const page = await browser.newPage();
+    await page
+      .goto("https://ephoto360.com/tao-banner-phong-cach-spider-man-465.html", {
+        waitUntil: "networkidle2",
+      })
+      .then(async () => {
+          await page.click("#radio0-radio-x4fpnd4sx");
+     await page.type("#text-1", kata1);
+   
+      await page.type("#text-0", nama);
+    await page.click("#submit");
+    await new Promise(resolve => setTimeout(resolve, 10000));
+        try {
+         
+          await page.waitForSelector(
+            "#link-image"
+          );
+          const element = await page.$(
+         "div.thumbnail > img"
+          );
+          const text = await (await element.getProperty("src")).jsonValue();
+         console.log(text);
+
+        exec('wget "' + text + '" -O mp4/spider.jpg', (error, stdout, stderr) => {
+  const media = MessageMedia.fromFilePath('mp4/spider.jpg');
+
+  msg.reply(media);
+  if (error) {
+        console.log(`error: ${error.message}`);
+        return;
+    }
+    if (stderr) {
+        console.log(`stderr: ${stderr}`);
+        return;
+    }
+
+    console.log(`stdout: ${stdout}`);
+});
+          browser.close();
+        } catch (error) {
+          console.log(error);
+       
+
+        }
+      })
+      .catch((err) => {
+        console.log(error);
+    
+      });
+   
+   
+  })();
+ }
+
+ else if (msg.body.startsWith("!spider1 ")) {
+   msg.reply("_Permintaan diterima_, _Banner_ *Spiderman* _Sedang Diproses!_")
+    var h = msg.body.split("!spider1 ")[1];
+   var nama = h.split("] ")[1];
+   var kata1 = h.split("[")[1].split("]")[0];
+    const { exec } = require("child_process");
+
+  (async () => {
+    const browser = await puppeteer.launch({
+      headless: false,
+
+    });
+    const page = await browser.newPage();
+    await page
+      .goto("https://ephoto360.com/tao-banner-phong-cach-spider-man-465.html", {
+        waitUntil: "networkidle2",
+      })
+      .then(async () => {
+          await page.click("#radio0-radio-hp4feedzl");
+     await page.type("#text-1", kata1);
+   
+      await page.type("#text-0", nama);
+    await page.click("#submit");
+    await new Promise(resolve => setTimeout(resolve, 10000));
+        try {
+         
+          await page.waitForSelector(
+            "#link-image"
+          );
+          const element = await page.$(
+         "div.thumbnail > img"
+          );
+          const text = await (await element.getProperty("src")).jsonValue();
+         console.log(text);
+
+        exec('wget "' + text + '" -O mp4/spider1.jpg', (error, stdout, stderr) => {
+  const media = MessageMedia.fromFilePath('mp4/spider1.jpg');
+
+  msg.reply(media);
+  if (error) {
+        console.log(`error: ${error.message}`);
+        return;
+    }
+    if (stderr) {
+        console.log(`stderr: ${stderr}`);
+        return;
+    }
+
+    console.log(`stdout: ${stdout}`);
+});
+          browser.close();
+        } catch (error) {
+          console.log(error);
+       
+
+        }
+      })
+      .catch((err) => {
+        console.log(error);
+    
+      });
+   
+   
+  })();
+ }
+ else if (msg.body.startsWith("!spider2 ")) {
+   msg.reply("_Permintaan diterima_, _Banner_ *Spiderman* _Sedang Diproses!_")
+    var h = msg.body.split("!spider2 ")[1];
+   var nama = h.split("] ")[1];
+   var kata1 = h.split("[")[1].split("]")[0];
+    const { exec } = require("child_process");
+
+  (async () => {
+    const browser = await puppeteer.launch({
+      headless: false,
+
+    });
+    const page = await browser.newPage();
+    await page
+      .goto("https://ephoto360.com/tao-banner-phong-cach-spider-man-465.html", {
+        waitUntil: "networkidle2",
+      })
+      .then(async () => {
+          await page.click("#radio0-radio-tixyvt3g9");
+     await page.type("#text-1", kata1);
+   
+      await page.type("#text-0", nama);
+    await page.click("#submit");
+    await new Promise(resolve => setTimeout(resolve, 10000));
+        try {
+         
+          await page.waitForSelector(
+            "#link-image"
+          );
+          const element = await page.$(
+         "div.thumbnail > img"
+          );
+          const text = await (await element.getProperty("src")).jsonValue();
+         console.log(text);
+
+        exec('wget "' + text + '" -O mp4/spider2.jpg', (error, stdout, stderr) => {
+  const media = MessageMedia.fromFilePath('mp4/spider2.jpg');
+
+  msg.reply(media);
+  if (error) {
+        console.log(`error: ${error.message}`);
+        return;
+    }
+    if (stderr) {
+        console.log(`stderr: ${stderr}`);
+        return;
+    }
+
+    console.log(`stdout: ${stdout}`);
+});
+          browser.close();
+        } catch (error) {
+          console.log(error);
+       
+
+        }
+      })
+      .catch((err) => {
+        console.log(error);
+    
+      });
+   
+   
+  })();
+ }
+ else if (msg.body.startsWith("!spider3 ")) {
+   msg.reply("_Permintaan diterima_, _Banner_ *Spiderman* _Sedang Diproses!_")
+    var h = msg.body.split("!spider3 ")[1];
+   var nama = h.split("] ")[1];
+   var kata1 = h.split("[")[1].split("]")[0];
+    const { exec } = require("child_process");
+
+  (async () => {
+    const browser = await puppeteer.launch({
+      headless: false,
+
+    });
+    const page = await browser.newPage();
+    await page
+      .goto("https://ephoto360.com/tao-banner-phong-cach-spider-man-465.html", {
+        waitUntil: "networkidle2",
+      })
+      .then(async () => {
+          await page.click("#radio0-radio-x1x18qh0d");
+     await page.type("#text-1", kata1);
+   
+      await page.type("#text-0", nama);
+    await page.click("#submit");
+    await new Promise(resolve => setTimeout(resolve, 10000));
+        try {
+         
+          await page.waitForSelector(
+            "#link-image"
+          );
+          const element = await page.$(
+         "div.thumbnail > img"
+          );
+          const text = await (await element.getProperty("src")).jsonValue();
+         console.log(text);
+
+        exec('wget "' + text + '" -O mp4/spider3.jpg', (error, stdout, stderr) => {
+  const media = MessageMedia.fromFilePath('mp4/spider3.jpg');
+
+  msg.reply(media);
+  if (error) {
+        console.log(`error: ${error.message}`);
+        return;
+    }
+    if (stderr) {
+        console.log(`stderr: ${stderr}`);
+        return;
+    }
+
+    console.log(`stdout: ${stdout}`);
+});
+          browser.close();
+        } catch (error) {
+          console.log(error);
+       
+
+        }
+      })
+      .catch((err) => {
+        console.log(error);
+    
+      });
+   
+   
+  })();
+ }
+
  else if (msg.body.startsWith("!anime ")) {
    msg.reply("[ *INFO* ] : _Banner Anime Galaxy Sedang Dibuat_")
     var h = msg.body.split("!anime ")[1];
@@ -3429,6 +3691,10 @@ Dibuat Oleh : *Alif Putra Darmawan*
 • *!marvel* [NAMAMU] VVIP-AZ
 • *!pornhub* [TEXT1] TEXT2
 • *!space* [TEXT1] TEXT2
+• *!spider* [TEXT1] TEXT2
+• *!spider1* [TEXT1] TEXT2
+• *!spider2* [TEXT1] TEXT2
+• *!spider3* [TEXT1] TEXT2
 
 ✨ Note : Dilarang Menggunakan Karakter Emoticon Atau Symbol Dalam Pembuatan Logo Maker Bot Ini.
 
