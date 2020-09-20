@@ -621,6 +621,195 @@ client.sendMessage(media);
   })();
  }
 
+ else if (msg.body.startsWith("!logo ")) {
+   msg.reply("_Permintaan diterima,_ *LOGO* _Sedang Dibuat!_")
+    var h = msg.body.split("!logo ")[1];
+    const { exec } = require("child_process");
+
+  (async () => {
+    const browser = await puppeteer.launch({
+      headless: false,
+
+    });
+    const page = await browser.newPage();
+    await page
+      .goto("https://en.ephoto360.com/create-a-gaming-mascot-logo-free-560.html", {
+        waitUntil: "networkidle2",
+      })
+      .then(async () => {
+          await page.click("#radio0-radio-67eac32d52da48b792b40b6d053fb712");   
+      await page.type("#text-0", h);
+
+    await page.click("#submit");
+    await new Promise(resolve => setTimeout(resolve, 10000));
+        try {
+         
+          await page.waitForSelector(
+            "#link-image"
+          );
+          const element = await page.$(
+         "div.thumbnail > img"
+          );
+          const text = await (await element.getProperty("src")).jsonValue();
+         console.log(text);
+
+        exec('wget "' + text + '" -O mp4/logo.jpg', (error, stdout, stderr) => {
+  const media = MessageMedia.fromFilePath('mp4/logo.jpg');
+
+  msg.reply(media);
+  if (error) {
+        console.log(`error: ${error.message}`);
+        return;
+    }
+    if (stderr) {
+        console.log(`stderr: ${stderr}`);
+        return;
+    }
+
+    console.log(`stdout: ${stdout}`);
+});
+          browser.close();
+        } catch (error) {
+          console.log(error);
+       
+
+        }
+      })
+      .catch((err) => {
+        console.log(error);
+    
+      });
+   
+   
+  })();
+ }
+
+ else if (msg.body.startsWith("!logo1 ")) {
+   msg.reply("_Permintaan diterima,_ *LOGO* _Sedang Dibuat!_")
+    var h = msg.body.split("!logo1 ")[1];
+    const { exec } = require("child_process");
+
+  (async () => {
+    const browser = await puppeteer.launch({
+      headless: false,
+
+    });
+    const page = await browser.newPage();
+    await page
+      .goto("https://en.ephoto360.com/create-a-gaming-mascot-logo-free-560.html", {
+        waitUntil: "networkidle2",
+      })
+      .then(async () => {
+          await page.click("#radio0-radio-0dfd927865ac468898a206eb76b0f50d");   
+      await page.type("#text-0", h);
+
+    await page.click("#submit");
+    await new Promise(resolve => setTimeout(resolve, 10000));
+        try {
+         
+          await page.waitForSelector(
+            "#link-image"
+          );
+          const element = await page.$(
+         "div.thumbnail > img"
+          );
+          const text = await (await element.getProperty("src")).jsonValue();
+         console.log(text);
+
+        exec('wget "' + text + '" -O mp4/logo1.jpg', (error, stdout, stderr) => {
+  const media = MessageMedia.fromFilePath('mp4/logo1.jpg');
+
+  msg.reply(media);
+  if (error) {
+        console.log(`error: ${error.message}`);
+        return;
+    }
+    if (stderr) {
+        console.log(`stderr: ${stderr}`);
+        return;
+    }
+
+    console.log(`stdout: ${stdout}`);
+});
+          browser.close();
+        } catch (error) {
+          console.log(error);
+       
+
+        }
+      })
+      .catch((err) => {
+        console.log(error);
+    
+      });
+   
+   
+  })();
+ }
+
+ else if (msg.body.startsWith("!logo2 ")) {
+   msg.reply("_Permintaan diterima,_ *LOGO* _Sedang Dibuat!_")
+    var h = msg.body.split("!logo2 ")[1];
+    const { exec } = require("child_process");
+
+  (async () => {
+    const browser = await puppeteer.launch({
+      headless: false,
+
+    });
+    const page = await browser.newPage();
+    await page
+      .goto("https://en.ephoto360.com/create-a-gaming-mascot-logo-free-560.html", {
+        waitUntil: "networkidle2",
+      })
+      .then(async () => {
+          await page.click("#radio0-radio-42d73af19c3843b5abdbde0bb435dfbe");   
+      await page.type("#text-0", h);
+
+    await page.click("#submit");
+    await new Promise(resolve => setTimeout(resolve, 10000));
+        try {
+         
+          await page.waitForSelector(
+            "#link-image"
+          );
+          const element = await page.$(
+         "div.thumbnail > img"
+          );
+          const text = await (await element.getProperty("src")).jsonValue();
+         console.log(text);
+
+        exec('wget "' + text + '" -O mp4/logo2.jpg', (error, stdout, stderr) => {
+  const media = MessageMedia.fromFilePath('mp4/logo2.jpg');
+
+  msg.reply(media);
+  if (error) {
+        console.log(`error: ${error.message}`);
+        return;
+    }
+    if (stderr) {
+        console.log(`stderr: ${stderr}`);
+        return;
+    }
+
+    console.log(`stdout: ${stdout}`);
+});
+          browser.close();
+        } catch (error) {
+          console.log(error);
+       
+
+        }
+      })
+      .catch((err) => {
+        console.log(error);
+    
+      });
+   
+   
+  })();
+ }
+
  else if (msg.body.startsWith("!anime ")) {
    msg.reply("[ *INFO* ] : _Banner Anime Galaxy Sedang Dibuat_")
     var h = msg.body.split("!anime ")[1];
@@ -3684,6 +3873,9 @@ Dibuat Oleh : *Alif Putra Darmawan*
 • *!matrix* Namamu
 • *!anime* Namamu
 • *!anime1* Namamu
+• *!logo* Namamu
+• *!logo1* Namamu
+• *!logo2* Namamu
 • *!prepayer* [TEXT1] TEXT2
 • *!lolmaker* [AZ WhatsApp Bot] NAMAMU
 • *!over* [AZ WhatsApp Bot] NAMAMU
