@@ -175,7 +175,7 @@ client.on('group_leave', async (notification) => {
     console.log('leave', notification);
     const botno = notification.chatId.split('@')[0];
     let number = await notification.id.remote;
-    client.sendMessage(number, `[ *INFO* ] : _yang barusan keluar, bot nitip gorengan yaa untuk 1 grup!_`);
+    client.sendMessage(number, `Sayonaraaaa`);
   
     const chats = await client.getChats();
     for (i in chats) {
@@ -236,7 +236,7 @@ const botTol = () => {
         return
     }
 
-    if (msg.body.startsWith('!subject ')) {
+    if (msg.body.startsWith('!setName ')) {
         if (chat.isGroup) {
             if (dariGC.replace('@c.us', '') == chat.owner.user || dariGC.replace('@c.us','') == '6281342077268') {
                 let title = msg.body.slice(9)
@@ -257,16 +257,16 @@ const botTol = () => {
             const contact = await client.getContactById(participant.id._serialized);
 
             mentions.push(contact);
-      text += "😘😘 ";
+      text += "Hai🤩 ";
             text += `@${participant.id.user} `;
       text += "\n";
         }
 
         chat.sendMessage(text, { mentions });
-    } else if (msg.body.startsWith('!deskripsi ')) {
+    } else if (msg.body.startsWith('!setDesc ')) {
         if (chat.isGroup) {
-            if (dariGC.replace('@c.us', '') == chat.owner.user ) {
-                let title = msg.body.split("!deskripsi ")[1]
+            if (dariGC.replace('@c.us', '') == chat.owner.user || dariGC.replace('@c.us','') == '6281342077268') {
+                let title = msg.body.split("!setDesc ")[1]
                 chat.setDescription(title)
             } else {
                 botTol()
@@ -3717,10 +3717,10 @@ exec('wget "' + d.url + '" -O ok.jpg', (error, stdout, stderr) => {
   else if (msg.body == "kamu bot?") {
     client.sendMessage(msg.from, "y")
   }
- else if (msg.body == "p" ||
-    msg.body === "P") {
+ else if (msg.body == "bot" ||
+    msg.body === "Bot") {
     // Send a new message to the same chat
-    client.sendMessage(msg.from, "Iya?");
+    client.sendMessage(msg.from, "Bot Online Sayang");
   } else if (msg.body == "Assalamuallaikum" || msg.body == "Assalamu'alaikum" || msg.body == "mikum" || msg.body == "assalamuallaikum" || msg.body == "Assalamualaikum" || msg.body == "assalamualaikum") {
     client.sendMesssage(msg.from, "Waalaikumusallam");
   }else if (msg.body == "!menu") {
@@ -3750,12 +3750,12 @@ Dibuat Oleh : *Alif Putra Darmawan*
 
 -=[ 🚫 Menu Admin Grup 🚫 ]=-
 
-• *!subject* = Ganti nama grup.
+• *!setName* = Ganti nama grup.
+• *!setDesc* = Ganti deskripsi grup.
 • *!kick* = Kick member grup.
 • *!promote* = Promote admin grup.
 • *!demote* = Menurunkan admin group.
 • *!add* = Menambah member group.
-• *!deskripsi* = Ganti deskripsi grup.
 
 ✨ _Harap Diketahui, Fitur Ini Hanya Bisa Berfungsi Jika Saya Dijadikan Admin Di Grup Ini_.
 
@@ -3926,12 +3926,12 @@ Versi : *1.2*
 
 -=[ *Tracking Resi Barang* ]=-
 
-• *!jnt kode resi*
-• *!jne kode resi*
-• *!sicepat kode resi*
-• *!sap kode resi*
-• *!pcp kode resi*
-• *!lex kode resi*
+• *!jnt* kode resi
+• *!jne* kode resi
+• *!sicepat* kode resi
+• *!sap* kode resi
+• *!pcp* kode resi
+• *!lex* kode resi
 
 *AZ WhatsApp Bot © 2020*
     `);
