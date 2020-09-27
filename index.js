@@ -8,6 +8,8 @@ const fetch = require("node-fetch");
 const puppeteer = require("puppeteer"); 
 const cheerio = require("cheerio");
 const SESSION_FILE_PATH = "./session.json";
+const request = require("request");
+const urlencode = require("urlencode");
 // file is included here
 let sessionCfg;
 if (fs.existsSync(SESSION_FILE_PATH)) {
@@ -304,7 +306,7 @@ const botTol = () => {
                 let title = msg.body.slice(5)
                 if (title.indexOf('62') == -1) {
                     chat.addParticipants([`${title.replace('0', '62')}@c.us`])
-                    msg.reply(`Selamat datang @${title}! Gunakan Command *!menu* untuk melihat daftar perintah.`)
+                    msg.reply(`Sedang Mengundang Member _Processing_`)
                 } else {
                     msg.reply('*INFO* : Format nomor harus 0821xxxxxx')
                 }
@@ -2506,57 +2508,31 @@ client.sendMessage(media);
   })();
  }
 
-  else if (msg.body.startsWith("!fb ")) {
-    msg.reply(`*Hai, Kita Proses Dulu Ya . . .*`);
-    let link = msg.body.split(" ")[1];
-  var namafile = "gue.mp4"
-  const { exec } = require("child_process");
-    const browser = await puppeteer.launch({
-      headless: false,
-      args: [
-        "--no-sandbox",
-        "--disable-setuid-sandbox",
-        "--disable-dev-shm-usage",
-        "--disable-accelerated-2d-canvas",
-        "--disable-gpu",
-        "--window-size=1920x1080",
-      ],
-    });
-    const page = await browser.newPage();
-    await page
-      .goto("https://id.savefrom.net/download-from-instagram", {
-        waitUntil: "networkidle2",
-      })
-      .then(async () => {
-        await page.type("#sf_url", `${link}`);
-        await page.click("#sf_submit");
-        try {
-          msg.reply("Mendownload Video!");
-          await page.waitForSelector(
-            "#sf_result > div > div.result-box.video > div.info-box > div.link-box.single > div.def-btn-box > a"
-          );
-          const element = await page.$(
-            "#sf_result > div > div.result-box.video > div.info-box > div.link-box.single > div.def-btn-box > a"
-          );
-          const text = await (await element.getProperty("href")).jsonValue();
-          const judul = await page.$(
-            "#sf_result > div > div.result-box.video > div.info-box > div.meta > div"
-          );
-          const judul1 = await (await judul.getProperty("title")).jsonValue();
-          console.log(
-            `[${moment().format("hh:mm:ss")}][!fb][${
-              msg.from
-            }] > Berhasil Dilakukan`
-          );
-          msg.reply(
-            `*BERHASIL!!!*
-             `     );
-      
-exec('wget "' + text + '" -O mp4/'+ namafile +'.mp4', (error, stdout, stderr) => {
-  const media = MessageMedia.fromFilePath('mp4/'+ namafile +'.mp4');
+ // Facebook Downloaderelse if (msg.body.startsWith("!fb ")) {
+	else if (msg.body.startsWith("!fb ")) {
+var teks = msg.body.split("!fb ")[1];
+const { exec } = require("child_process");
+var url = "http://api.fdci.se/sosmed/fb.php?url="+ teks;
 
-  chat.sendMessage(media);
-  if (error) {
+request.get({
+  headers: {'User-Agent':'Mozilla/5.0 (X11; Linux x86_64; rv:74.0) Gecko/20100101 Firefox/74.0'},
+  url:     url,
+},function(error, response, body){
+    let $ = cheerio.load(body);
+  var b = JSON.parse(body);
+
+ var teks = `
+ Berhasil Mendownload 
+ 
+ Judul = ${b.judul}
+ 
+ Facebook Downloader By AZ WhatsApp Bot `;
+ 
+exec('wget "' + b.link + '" -O mp4/fbvid.mp4', (error, stdout, stderr) => {
+  let media = MessageMedia.fromFilePath('mp4/fbvid.mp4');
+	client.sendMessage(msg.from, media, {
+	caption: teks });
+	if (error) {
         console.log(`error: ${error.message}`);
         return;
     }
@@ -2567,31 +2543,125 @@ exec('wget "' + text + '" -O mp4/'+ namafile +'.mp4', (error, stdout, stderr) =>
 
     console.log(`stdout: ${stdout}`);
 });
-          browser.close();
-        } catch (error) {
-          console.log(
-            `[${moment().format("hh:mm:ss")}][!fb][${
-              msg.from
-            }] > GAGAL Dilakukan`
-          );
-          msg.reply(
-            `[GAGAL] PASTIKAN LINK VIDEO BERSIFAT PUBLIK DAN DAPAT DIAKSES OLEH SEMUA ORANG!*`
-          );
-          browser.close();
+
+});
+}
+
+// random fakta unik
+// pajaar - 2020
+else if (msg.body == "!fakta") {
+const fetch = require("node-fetch"); 
+fetch('https://raw.githubusercontent.com/pajaar/grabbed-results/master/pajaar-2020-fakta-unik.txt')
+    .then(res => res.text())
+    .then(body => {
+	let tod = body.split("\n");
+	let pjr = tod[Math.floor(Math.random() * tod.length)];
+	msg.reply(pjr);
+	});
+}
+
+// Download Youtube Video
+else if (msg.body.startsWith("!yt ")) {
+const url = msg.body.split(" ")[1];
+const exec = require('child_process').exec;
+
+var videoid = url.match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/);
+
+const ytdl = require("ytdl-core")
+if(videoid != null) {
+   console.log("video id = ",videoid[1]);
+} else {
+    msg.reply("Videonya gavalid gan.");
+}
+msg.reply(" Tunggu sebentar kak .. Lagi di proses ☺");
+ytdl.getInfo(videoid[1]).then(info => {
+if (info.length_seconds > 1000){
+msg.reply("terlalu panjang.. \n sebagai gantinya \n kamu bisa klik link dibawah ini \π \n "+ info.formats[0].url)
+}else{
+
+console.log(info.length_seconds)
+
+function os_func() {
+    this.execCommand = function (cmd) {
+        return new Promise((resolve, reject)=> {
+           exec(cmd, (error, stdout, stderr) => {
+             if (error) {
+                reject(error);
+                return;
+            }
+            resolve(stdout)
+           });
+       })
+   }
+}
+var os = new os_func();
+
+os.execCommand('ytdl ' + url + ' -q highest -o mp4/'+ videoid[1] +'.mp4').then(res=> {
+    var media = MessageMedia.fromFilePath('mp4/'+ videoid[1] +'.mp4');
+chat.sendMessage(media);
+}).catch(err=> {
+    console.log("os >>>", err);
+})
+
+}
+});
+
+}
+  // Download Instagram
+else if (msg.body.startsWith("!ig ")) {
+const imageToBase64 = require('image-to-base64');
+var link = msg.body.split("!ig ")[1];
+var url = "http://api.fdci.se/sosmed/insta.php?url="+ link;
+const { exec } = require("child_process");
+request.get({
+  headers: {'User-Agent':'Mozilla/5.0 (X11; Linux x86_64; rv:74.0) Gecko/20100101 Firefox/74.0'},
+  url:     url,
+},function(error, response, body){
+    let $ = cheerio.load(body);
+  var b = JSON.parse(body);
+  
+  var teks = ` Download Berhasil 
+  
+  Instagram Downloader By AZ WhatsApp Bot`;
+  if(b.link == false){
+	  msg.reply(" maaf Kak link nya gaada :P ");
+  }else if( b.link.indexOf(".jpg") >= 0){
+imageToBase64(b.link) // Path to the image
+    .then(
+        (response) => {
+            ; // "cGF0aC90by9maWxlLmpwZw=="
+
+const media = new MessageMedia('image/jpeg', response);
+client.sendMessage(msg.from, media, {
+	caption: teks });
         }
-      })
-      .catch((err) => {
-        console.log(
-          `[${moment().format("hh:mm:ss")}][!fb][${msg.from}] > GAGAL Dilakukan`
-        );
-        msg.reply(
-          `[GAGAL] Server Sedang Down!\n\nSilahkan Coba Beberapa Saat Lagi!`
-        );
-        browser.close();
-      });
-   
-   
-  } 
+    )
+    .catch(
+        (error) => {
+            console.log(error); // Logs an error if there was one
+        }
+    )
+    }else if( b.link.indexOf(".mp4") >= 0){
+    	exec('wget "' + b.link + '" -O mp4/insta.mp4', (error, stdout, stderr) => {
+
+let media = MessageMedia.fromFilePath('mp4/insta.mp4');
+	client.sendMessage(msg.from, media, {
+	caption: teks });
+	if (error) {
+        console.log(`error: ${error.message}`);
+        return;
+    }
+    if (stderr) {
+        console.log(`stderr: ${stderr}`);
+        return;
+    }
+
+    console.log(`stdout: ${stdout}`);
+});
+}
+  
+});
+}
 else if (msg.body.startsWith("!translate ")) {
 const translatte = require('translatte');
 var codelang = msg.body.split("[")[1].split("]")[0];
@@ -2635,7 +2705,106 @@ const options = {
 
 }
 
+  // Penyegar TimeLine
+  else if (msg.body == "!ptl2" ){
+    const imageToBase64 = require('image-to-base64');
+    var items = ["ullzang boy", "cowo ganteng", "cogan", "korean boy"];
+    var cewe = items[Math.floor(Math.random() * items.length)];
+    var url = "http://api.fdci.se/rep.php?gambar=" + cewe;
+    
+    request.get({
+      headers: {'User-Agent':'Mozilla/5.0 (X11; Linux x86_64; rv:74.0) Gecko/20100101 Firefox/74.0'},
+      url:     url,
+    },function(error, response, body){
+        
+      var b = JSON.parse(body);
+    var cewek =  b[Math.floor(Math.random() * b.length)];
+    imageToBase64(cewek) // Path to the image
+        .then(
+            (response) => {
+ 
+    const media = new MessageMedia('image/jpeg', response);
+    client.sendMessage(msg.from, media, {
+      caption: `
+Hai Manis 😊` });
+            }
+        )
+        .catch(
+            (error) => {
+                console.log(error); // Logs an error if there was one
+            }
+        )
+    
+    });
+    }
+  
+   else if (msg.body == "!ptl1" ){
+    const imageToBase64 = require('image-to-base64');
+    var items = ["ullzang girl", "cewe cantik", "hijab cantik", "korean girl"];
+    var cewe = items[Math.floor(Math.random() * items.length)];
+    var url = "http://api.fdci.se/rep.php?gambar=" + cewe;
+    
+    request.get({
+      headers: {'User-Agent':'Mozilla/5.0 (X11; Linux x86_64; rv:74.0) Gecko/20100101 Firefox/74.0'},
+      url:     url,
+    },function(error, response, body){
+        
+      var b = JSON.parse(body);
+    var cewek =  b[Math.floor(Math.random() * b.length)];
+    imageToBase64(cewek) // Path to the image
+        .then(
+            (response) => {
+ 
+    const media = new MessageMedia('image/jpeg', response);
+    client.sendMessage(msg.from, media, {
+      caption: `
+Hai Kak 😊` });
+            }
+        )
+        .catch(
+            (error) => {
+                console.log(error); // Logs an error if there was one
+            }
+        )
+    
+    });
+    }
+	// Search Image
+	
+else if (msg.body.startsWith("!img ")) {
 
+var nama = msg.body.split("!img ")[1];
+var req = urlencode(nama.replace(/ /g,"+"));
+    const imageToBase64 = require('image-to-base64');
+
+    var url = "http://api.fdci.se/rep.php?gambar=" + req;
+    
+    request.get({
+      headers: {'User-Agent':'Mozilla/5.0 (X11; Linux x86_64; rv:74.0) Gecko/20100101 Firefox/74.0'},
+      url:     url,
+    },function(error, response, body){
+        
+      var b = JSON.parse(body);
+    var cewek =  b[Math.floor(Math.random() * b.length)];
+    imageToBase64(cewek) // Path to the image
+        .then(
+            (response) => {
+ 
+    const media = new MessageMedia('image/jpeg', response);
+    client.sendMessage(msg.from, media, {
+      caption: `
+Whoaaaa gambar di temukan 😲`  });
+            }
+        )
+        .catch(
+            (error) => {
+               msg.reply(`Yaahhhh gambar tidak ditemukan 🤧`); // Logs an error if there was one
+            }
+        )
+    
+    });
+    }
+  
   else if (msg.body.startsWith("!wiki ")) {
 const cheerio = require('cheerio');
 const request = require('request');
@@ -2662,7 +2831,7 @@ msg.reply(fik)
 });
 
 }
-else if (msg.body.startsWith("!fb ")) {
+else if (msg.body.startsWith("!fb1 ")) {
 
 const request = require('request');
 var req = msg.body.split(" ")[1];
@@ -3666,7 +3835,7 @@ bot ini
 
   `);
   }
- else if (msg.body == "hahaha") {
+ else if (msg.body == ".hentai") {
 const cheerio = require('cheerio');
 const request = require('request');
 
@@ -3732,15 +3901,16 @@ Jenis Perintah : *!menu*
 Berikut daftar perintah yang bisa digunakan :     
 • *.admin* : Menu Admin Grup
 • *1* : Menu Utama
-• *2* : Menu Music Download
+• *2* : Menu Downloader
 • *3* : Menu Horoscape
 • *4* : Menu Cek Resi
 • *5* : Tools Logo Maker
+• *!ptl1* : Penyegar Timeline Cewe
+• *!ptl2* : Penyegar Timeline Cowo
 • *donasi* : Support AZ WhatsApp Agar Tetap Aktif
 
-🌟 Jam Online AZ WhatsApp Bot :
-  [ JAM 12 MALAM SAMPAI JAM 9 PAGI ]
-`);
+Follow Instagram : @katagblk
+Sebagai bentuk terimakasih anda telah menggunakan layanan AZ WhatsApp Bot.`);
 
 }
 else if (msg.body == ".admin") {
@@ -3816,14 +3986,20 @@ else if (msg.body == "2") {
 Nama : *AZ-WhatsApp Bot*
 Dibuat Oleh : *Alif Putra Darmawan*
 
--=[ 🎶 Download Music 🎶 ]=-
+-=[ 🦅 Tools Downloader 🦅 ]=-
 
 • *!play* Judul Lagu
 
 • *!ytmp3* Link Video Music Youtube
 
-📣 _Dilarang Request Lagu Lebih Dari 1 Jam, Demi Kebaikan Bersama :)_
-💌 *Melanggar Rules* Banned Permanent!
+• *!fb* Link Video Facebook
+
+• *!ig* Link Instagram Video
+
+• *!img* Gambar yang anda inginkan
+
+Follow Instagram : _@katagblk_
+Melanggar rules bot ? BLOCK ya sayang :(
 
 *AZ WhatsApp Bot © 2020*
 `);
@@ -3837,12 +4013,6 @@ Versi : *1.2*
 
 • *!nama* : Melihat arti dari nama kamu
  contoh : !nama Bondan
-
-• *!sifat* : cari sifat berdasarkan nama dan tanggal lahir
-contoh : !sifat [Bondan] 31-08-1999
-
-• *!sial* : Check hari apes mu berdasarkan tanggal lahir.
-contoh : !sial 17 08 1945
 
 • *!pasangan* : Check kecocokan jodoh
  contoh : !pasangan Dimas & Dinda
