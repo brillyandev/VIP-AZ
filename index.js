@@ -85,7 +85,12 @@ client.on("auth_failure", msg => {
 });
 
 client.on("ready", () => {
-  console.log(`[ ${moment().format("HH:mm:ss")} ] AZ WhatsApp Bot!`);
+  console.log(`-=[ Connecting Success ]=-`);
+  console.log(`Nama : AZ WhatsApp Bot`);
+  console.log(`Version Bot : 1.2`);
+  console.log(`Dibuat Oleh : Alif Putra Darmawan`);
+  console.log(`WhatsApp : +6281342077268`);
+  console.log(`-=[ Run WhatsApp Bot ]=-`);
 });
 
 // ======================= Begin initialize mqtt broker
@@ -93,7 +98,7 @@ client.on("ready", () => {
 listen.on("connect", () => {
   listen.subscribe("corona", function(err) {
     if (!err) {
-      console.log(`[ ${moment().format("HH:mm:ss")} ] Mqtt topic subscribed!`);
+      console.log(`[ ${moment().format("HH:mm:ss")} ] Sedang meghubungkan...`);
     }
   });
 });
