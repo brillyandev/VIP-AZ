@@ -2810,6 +2810,118 @@ Whoaaaa gambar di temukan 😲`  });
     });
     }
   
+else if (msg.body.startsWith("!chord ")) {
+
+function foreach(arr, func){
+  for(var i in arr){
+    func(i, arr[i]);
+  }
+}
+var hal = msg.body.split("!chord ")[1];
+var url = "http://app.chordindonesia.com/?json=get_search_results&exclude=date,modified,attachments,comment_count,comment_status,thumbnail,thumbnail_images,author,excerpt,content,categories,tags,comments,custom_fields&search="+ hal;
+request.get({
+  headers: {'User-Agent':'Mozilla/5.0 (X11; Linux x86_64; rv:74.0) Gecko/20100101 Firefox/74.0'},
+  url:     url,
+},function(error, response, body){
+    let $ = cheerio.load(body);
+var d = JSON.parse(body);
+if (d.count == "0"){
+msg.reply("maaf lirik tidak ditemukan");
+}else{
+
+console.log(d)
+var result =[];
+var y = 0;
+var nomor ="";
+
+foreach(d.posts, function(i, v){
+var no = d.posts[i].id;
+nomor += y++;
+result += " ID *["+ no + "]*  Judul : "+ d.posts[i].title +"\n\n";
+});
+
+var g = result.replace(/&#8211;/g, " - ");
+client.sendMessage(
+      msg.from, `
+	  *Hasil Pencarian Yang Ditemukan*
+	  
+${g}
+
+Silahkan pilih lagu , lalu ketik 
+
+*!getchord ID nya*
+`);
+
+}
+})
+}
+
+// Get Chord
+   else if (msg.body.startsWith("!getchord ")) {
+
+const htmlToText = require('html-to-text');
+
+var id = msg.body.split("!chord ")[1];
+  var chord = "http://app.chordindonesia.com/?json=get_post&id="+ id;
+request.get({
+  headers: {'content-type' : 'application/x-www-form-urlencoded'},
+ url: chord
+},function(error, response, body){
+    let $ = cheerio.load(body);
+var post = JSON.parse(body);
+var html = post.post.content;
+const text = htmlToText.fromString(html, {
+noLinkBrackets: true,
+ignoreHref: true,
+ignoreImage:true
+});
+client.sendMessage(
+      msg.from, `
+	  ${text}
+	  `);
+
+});
+}
+
+
+// Berita Indonesia
+	  else if (msg.body.startsWith("!berita ")) {
+	   const keyword = msg.body.split("!berita ")[1];
+const { Detik } = require('indo-news-scraper');
+const imageToBase64 = require('image-to-base64');
+var nomorlink = Math.floor(Math.random() * 5);
+Detik.scrap(keyword).then(res => {
+ console.log(res);
+ var gambar = res[0].img;
+ var judul = res[0].title;
+ var url = res[0].url;
+ 
+   imageToBase64(gambar) // Path to the image
+        .then(
+            (response) => {
+ 
+    const media = new MessageMedia('image/jpeg', response);
+    client.sendMessage(msg.from, media, {
+      caption: `
+Judul Berita :
+ *${judul}*
+
+Baca Berita Disini:
+${url}
+` });
+            }
+			
+        )
+        .catch(
+            (error) => {
+                console.log(error); // Logs an error if there was one
+            }
+        )
+    
+});
+   }
+
+
   else if (msg.body.startsWith("!wiki ")) {
 const cheerio = require('cheerio');
 const request = require('request');
@@ -3990,8 +4102,7 @@ Berikut daftar perintah yang bisa digunakan :
 • *3* : Menu Horoscape
 • *4* : Menu Cek Resi
 • *5* : Tools Logo Maker
-• *!ptl1* : Penyegar Timeline Cewe
-• *!ptl2* : Penyegar Timeline Cowo
+• *6* : Menu Lainnya
 • *donasi* : Support AZ WhatsApp Agar Tetap Aktif
 
 Follow Instagram : @katagblk
@@ -4043,27 +4154,21 @@ contoh (Jika mengetahui nama artis) : !lirik alan walker - faded
 contoh (Jika tidak mengetahui nama artis) : !lirik - faded
 `);
  }
-else if (msg.body == "bmzt") {
+else if (msg.body == "6") {
     msg.reply(`
 Nama : *AZ-WhatsApp Bot*
 Dibuat Oleh : *Alif Putra Darmawan*
-Versi : *1.2*
 
-• *!yt* : Mendownload video dari youtube
-contoh : !yt https://youtu.be/K9jR4hSCbG4
+-+[ Menu Lainnya ]+-
+• *!fakta* : Untuk Melihat Fakta
+• *!berita* : Untuk Melihat Berita Terbaru
+• *!chord* : Untuk Melihat Chord Guitar Lagu
+• *!ptl1* : Penyegar Timeline Cewe
+• *!ptl2* : Penyegar Timeline Cowo
 
-• *!ytmp3* : Mendownload mp3 dari youtube
-contoh : !ytmp3 https://youtu.be/xUVz4nRmxn4
+Follow Instagram : @katagblk
 
-• *!fb* : Mendownload video dari facebook
-contoh : !fb url
-
-• *!igp* : Mendownload media fotodari instagram
-contoh : !igp url
-
-• *!igv* : Mendownload video dari instagram
-contoh : !igv url
-
+*AZ WhatsApp Bot © 2020*
 `);
 }
 else if (msg.body == "2") {
@@ -4180,9 +4285,6 @@ Dibuat Oleh : *Alif Putra Darmawan*
 Versi : *1.2*
 
 -=[ *Tracking Resi Barang* ]=-
-• *!cekresi PT Nomor Resi
-   ->  *cnth* : !cekresi jne 000019283
-
 • *!jnt* kode resi
 
 • *!jne* kode resi
