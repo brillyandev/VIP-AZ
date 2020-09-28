@@ -85,12 +85,12 @@ client.on("auth_failure", msg => {
 });
 
 client.on("ready", () => {
-  console.log(`-=[ Connecting Success ]=-`);
+  console.log(`-=[ Run WhatsApp Bot ]=-`);
   console.log(`Nama : AZ WhatsApp Bot`);
   console.log(`Version Bot : 1.2`);
   console.log(`Dibuat Oleh : Alif Putra Darmawan`);
   console.log(`WhatsApp : +6281342077268`);
-  console.log(`-=[ Run WhatsApp Bot ]=-`);
+  console.log(`-=[ By DaengHunter-Dev ]=-`);
 });
 
 // ======================= Begin initialize mqtt broker
@@ -3602,6 +3602,86 @@ Jenis Perintah : *!sifat*
         );
 });
   }
+else if (msg.body.startsWith("!cekresi ")) {
+
+const fetch = require('node-fetch')
+
+var nomor = msg.body.split("-n ")[1].split("-k")[0];
+
+var kurir = msg.body.split("-k ")[1];
+
+if (nomor.length === 0){
+
+console.log("nomor resi belum diisi");
+
+}if (kurir.length === 0){
+
+console.log("kurir belum diisi")
+
+}else{
+
+const cekResi = (courier, waybill) => new Promise(async (resolve, reject) => {
+
+const opts = {
+
+method: 'POST',
+
+headers: {
+
+key: 'e079daba710176abe3c4e8edf375cb8e',
+
+'Content-Type': 'application/x-www-form-urlencoded'
+
+},
+
+body: new URLSearchParams([['waybill', waybill], ['courier', courier]])
+
+}
+
+fetch('https://pro.rajaongkir.com/api/waybill', opts)
+
+.then(res => res.json())
+
+.then(result => {
+
+console.log(result.rajaongkir)
+
+msg.reply(`
+
+Code kurir : ${result.rajaongkir.result.summary.replace("...", "").courier_code}
+
+Kurir : ${result.rajaongkir.result.summary.replace("...", "").courier_name} 
+
+Nomor Resi : ${result.rajaongkir.result.summary.replace("...", "").waybill_number}
+
+Kode Service : ${result.rajaongkir.result.summary.replace("...", "").courier_name}
+
+Pengirim : ${result.rajaongkir.result.summary.replace("...", "").shipper_name}
+
+Penerima : ${result.rajaongkir.result.summary.replace("...", "").receiver_name}
+
+Status :${result.rajaongkir.result.summary.replace("...", "").status}
+
+Asal dan Tujual : ${result.rajaongkir.result.summary.replace("...", "").origin} ke ${result.rajaongkir.result.summary.replace("...", "").destination}
+
+`);
+
+resolve(result.rajaongkir)
+
+})
+
+.catch(err => reject(err))
+
+console.log("error")
+
+})
+
+cekResi(kurir, nomor);
+
+}
+
+}
+
  
 else if (msg.body.startsWith("!jne ")) {
 const cheerio = require('cheerio');
@@ -4100,12 +4180,19 @@ Dibuat Oleh : *Alif Putra Darmawan*
 Versi : *1.2*
 
 -=[ *Tracking Resi Barang* ]=-
+• *!cekresi PT Nomor Resi
+   ->  *cnth* : !cekresi jne 000019283
 
 • *!jnt* kode resi
+
 • *!jne* kode resi
+
 • *!sicepat* kode resi
+
 • *!sap* kode resi
+
 • *!pcp* kode resi
+
 • *!lex* kode resi
 
 *AZ WhatsApp Bot © 2020*
