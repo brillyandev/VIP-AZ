@@ -323,7 +323,7 @@ const botTol = () => {
         }
     } else if (msg.body.startsWith('!kick ')) {
         if (chat.isGroup) {
-            if (dariGC.replace('@c.us', '') == chat.owner.user || dariGC.replace('@c.us','') == '6281342077268') {
+            if (dariGC.replace('@c.us', '') == chat.owner.user || dariGC.replace('@c.us','') == '6281342077268' || dariGC.replace('@c.us','') == '6289637738866') {
                 let title = msg.mentionedIds
                 chat.removeParticipants([...title])
                 // console.log([...title]);
@@ -366,6 +366,37 @@ const media = new MessageMedia('image/jpg', yuli);
 console.log(gambar);
 client.sendMessage(media);
 }
+ else if (msg.body.startsWith("!nulis ")) {
+   msg.reply("_Permintaan diterima, bot sedang menulis :)_")
+    var h = msg.body.split("!spider ")[1];
+    const { exec } = require("child_process");
+      console.log(split)
+      spawn("convert", [
+        "./assets/paper.jpg",
+        "-font",
+        "Indie-Flower",
+        "-size",
+        "700x960",
+        "-pointsize",
+        "18",
+        "-interline-spacing",
+        "3",
+        "-annotate",
+        "+170+222",
+        fixedHeight,
+        "./assets/result.jpg"
+      ])
+        .on("error", () => console.log("error"))
+        .on("exit", () => {
+          client.sendImage(
+            message.from,
+            "./assets/result.jpg",
+            "result.jpg",
+            ""
+          )
+          console.log("done")
+        })
+    }
  else if (msg.body.startsWith("!spider ")) {
    msg.reply("_Permintaan diterima_, _Banner_ *Spiderman* _Sedang Diproses!_")
     var h = msg.body.split("!spider ")[1];
@@ -2565,6 +2596,57 @@ fetch('https://raw.githubusercontent.com/pajaar/grabbed-results/master/pajaar-20
 	});
 }
 
+// lirik
+else if (msg.body.startsWith("!lyric ")) {
+var request = require("request");
+let judul = msg.body.split(" ")[1];
+request.get({
+  headers: {'content-type' : 'application/x-www-form-urlencoded'},
+  url: "http://tololbgt.coolpage.biz/lirik.php?judul="+judul
+},function(error, response, body){
+msg.reply(body.replace(/pjr-enter/g,"\n"));
+});
+}
+
+// random pantun
+// pajaar - 2020
+else if (msg.body == "!pantun") {
+const fetch = require("node-fetch"); 
+fetch('https://raw.githubusercontent.com/pajaar/grabbed-results/master/pajaar-2020-pantun-pakboy.txt')
+    .then(res => res.text())
+    .then(body => {
+	let tod = body.split("\n");
+	let pjr = tod[Math.floor(Math.random() * tod.length)];
+	msg.reply(pjr.replace(/pjrx-line/g,"\n"));
+	});
+}
+
+// random anime HD v2
+// pajaar 2020
+else if (msg.body == "!animehd" ){
+const fetch = require("node-fetch"); 
+const imageToBase64 = require('image-to-base64');
+fetch('https://raw.githubusercontent.com/pajaar/grabbed-results/master/pajaar-2020-gambar-anime.txt')
+    .then(res => res.text())
+    .then(body => {
+	let tod = body.split("\n");
+	let pjr = tod[Math.floor(Math.random() * tod.length)];
+imageToBase64(pjr) // Image URL
+    .then(
+        (response) => {
+const media = new MessageMedia('image/jpeg', response);
+client.sendMessage(msg.from, media, {
+caption: `Hey...` });
+        }
+    )
+    .catch(
+        (error) => {
+            console.log(error); // Logs an error if there was one
+        }
+    )
+});
+}
+
 // Download Youtube Video
 else if (msg.body.startsWith("!yt ")) {
 const url = msg.body.split(" ")[1];
@@ -4159,12 +4241,16 @@ else if (msg.body == "6") {
 Nama : *AZ-WhatsApp Bot*
 Dibuat Oleh : *Alif Putra Darmawan*
 
--+[ Menu Lainnya ]+-
+-+[ *Menu Lainnya* ]+-
+
 • *!fakta* : Untuk Melihat Fakta
 • *!berita* : Untuk Melihat Berita Terbaru
+• *!pantun* : Untuk menampilkan pantun fakboy
 • *!chord* : Untuk Melihat Chord Guitar Lagu
 • *!ptl1* : Penyegar Timeline Cewe
 • *!ptl2* : Penyegar Timeline Cowo
+• *!lyric* : Mencari Lirik Lagu
+• *!animehd* : Gambar Anime Versi HD
 
 Follow Instagram : @katagblk
 
