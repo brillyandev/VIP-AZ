@@ -145,7 +145,15 @@ client.on('group_join', async (notification) => {
     console.log('join', notification);
     const botno = notification.chatId.split('@')[0];
     let number = await notification.id.remote;
-    client.sendMessage(number, `[ *INFO* ] : _Member baru saja bergabung di grup ini, Gunakan !menu untuk melihat daftar perintah AZ WhatsApp Bot._ `);
+    client.sendMessage(number, `[ *INFO* ] _Member baru, baru saja bergabung. Silahkan intro terlebih dahulu:_
+
+Nama:
+Umur :
+Askot:
+Gender :
+Status :
+
+Silahkan gunakan perintah *!menu* untuk melihat daftar perintah _AZ WhatsApp Bot._`);
   
     const chats = await client.getChats();
     for (i in chats) {
