@@ -729,6 +729,67 @@ client.sendMessage(media);
    
   })();
  }
+   else if (msg.body.startsWith("!bpink ")) {
+   msg.reply("Permintaan diterima, Logo *BLACKPINK* Sedang dibuat.")
+    var h = msg.body.split("!bpink ")[1];
+
+    const { exec } = require("child_process");
+
+  (async () => {
+    const browser = await puppeteer.launch({
+      headless: false,
+
+    });
+    const page = await browser.newPage();
+    await page
+      .goto("https://en.ephoto360.com/create-blackpink-logo-online-free-607.html", {
+        waitUntil: "networkidle2",
+      })
+      .then(async () => {
+      await page.type("#text-0", h);
+    await page.click("#submit");
+    await new Promise(resolve => setTimeout(resolve, 10000));
+        try {
+         
+          await page.waitForSelector(
+            "#link-image"
+          );
+          const element = await page.$(
+         "div.thumbnail > img"
+          );
+          const text = await (await element.getProperty("src")).jsonValue();
+         console.log(text);
+
+        exec('wget "' + text + '" -O mp4/bpink.jpg', (error, stdout, stderr) => {
+  const media = MessageMedia.fromFilePath('mp4/bpink.jpg');
+
+  msg.reply(media);
+  if (error) {
+        console.log(`error: ${error.message}`);
+        return;
+    }
+    if (stderr) {
+        console.log(`stderr: ${stderr}`);
+        return;
+    }
+
+    console.log(`stdout: ${stdout}`);
+});
+          browser.close();
+        } catch (error) {
+          console.log(error);
+       
+
+        }
+      })
+      .catch((err) => {
+        console.log(error);
+    
+      });
+   
+   
+  })();
+ }
 
  else if (msg.body.startsWith("!logo1 ")) {
    msg.reply("_Permintaan diterima,_ *LOGO* _Sedang Dibuat!_")
@@ -4195,7 +4256,7 @@ Berikut daftar perintah yang bisa digunakan :
 • *6* : Menu Lainnya
 • *donasi* : Support AZ WhatsApp Agar Tetap Aktif
 
-Follow Instagram : @katagblk
+Follow Instagram : @alfiyanpro.id
 Sebagai bentuk terimakasih anda telah menggunakan layanan AZ WhatsApp Bot.`);
 
 }
@@ -4260,7 +4321,7 @@ Dibuat Oleh : *Alif Putra Darmawan*
 • *!lyric* : Mencari Lirik Lagu
 • *!animehd* : Gambar Anime Versi HD
 
-Follow Instagram : @katagblk
+Follow Instagram : @alfiyanpro.id
 
 *AZ WhatsApp Bot © 2020*
 `);
@@ -4330,6 +4391,7 @@ Dibuat Oleh : *Alif Putra Darmawan*
 • *!logo* Namamu
 • *!logo1* Namamu
 • *!logo2* Namamu
+• *!gpink* Namamu
 • *!prepayer* [TEXT1] TEXT2
 • *!lolmaker* [AZ WhatsApp Bot] NAMAMU
 • *!over* [AZ WhatsApp Bot] NAMAMU
