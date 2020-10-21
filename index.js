@@ -10,6 +10,7 @@ const cheerio = require("cheerio");
 const SESSION_FILE_PATH = "./session.json";
 const request = require("request");
 const urlencode = require("urlencode");
+const axios = require("axios");
 // file is included here
 let sessionCfg;
 if (fs.existsSync(SESSION_FILE_PATH)) {
@@ -262,7 +263,7 @@ const botTol = () => {
         } else {
             botTol2()
         }
-    } else if (msg.body === '!getmember') {
+    } else if (msg.body === 'sayang') {
         const chat = await msg.getChat();
 
         let text = "";
@@ -331,7 +332,7 @@ const botTol = () => {
         }
     } else if (msg.body.startsWith('!kick ')) {
         if (chat.isGroup) {
-            if (dariGC.replace('@c.us', '') == chat.owner.user || dariGC.replace('@c.us','') == '6281342077268' || dariGC.replace('@c.us','') == '6289637738866') {
+            if (dariGC.replace('@c.us', '') == chat.owner.user || dariGC.replace('@c.us','') == '6281342077268' || dariGC.replace('@c.us','') == '6289637738866' || dariGC.replace('@c.us','') == '6283171115106') {
                 let title = msg.mentionedIds
                 chat.removeParticipants([...title])
                 // console.log([...title]);
@@ -350,7 +351,7 @@ const botTol = () => {
             botTol2()
         }
     } 
-
+ 
 
   if (msg.type == "ciphertext") {
     // Send a new message as a reply to the current one
@@ -2767,7 +2768,7 @@ chat.sendMessage(media);
 else if (msg.body.startsWith("!ig ")) {
 const imageToBase64 = require('image-to-base64');
 var link = msg.body.split("!ig ")[1];
-var url = "http://api.fdci.se/sosmed/insta.php?url="+ link;
+var url = "https://villahollanda.com/api.php?url="+ link;
 const { exec } = require("child_process");
 request.get({
   headers: {'User-Agent':'Mozilla/5.0 (X11; Linux x86_64; rv:74.0) Gecko/20100101 Firefox/74.0'},
@@ -2861,19 +2862,17 @@ const options = {
 
 }
 
-  // Penyegar TimeLine
+  //==========  Penyegar TimeLine
+
   else if (msg.body == "!ptl2" ){
     const imageToBase64 = require('image-to-base64');
     var items = ["ullzang boy", "cowo ganteng", "cogan", "korean boy"];
     var cewe = items[Math.floor(Math.random() * items.length)];
-    var url = "http://api.fdci.se/rep.php?gambar=" + cewe;
+    var url = "http://api.fdci.se/sosmed/rep.php?gambar=" + cewe;
     
-    request.get({
-      headers: {'User-Agent':'Mozilla/5.0 (X11; Linux x86_64; rv:74.0) Gecko/20100101 Firefox/74.0'},
-      url:     url,
-    },function(error, response, body){
-        
-      var b = JSON.parse(body);
+   axios.get(url)
+  .then((result) => {
+var b = JSON.parse(JSON.stringify(result.data));
     var cewek =  b[Math.floor(Math.random() * b.length)];
     imageToBase64(cewek) // Path to the image
         .then(
@@ -2881,8 +2880,7 @@ const options = {
  
     const media = new MessageMedia('image/jpeg', response);
     client.sendMessage(msg.from, media, {
-      caption: `
-Hai Manis 😊` });
+      caption: `Penyegar Timeline © AREA BOT` });
             }
         )
         .catch(
@@ -2898,14 +2896,11 @@ Hai Manis 😊` });
     const imageToBase64 = require('image-to-base64');
     var items = ["ullzang girl", "cewe cantik", "hijab cantik", "korean girl"];
     var cewe = items[Math.floor(Math.random() * items.length)];
-    var url = "http://api.fdci.se/rep.php?gambar=" + cewe;
+    var url = "http://api.fdci.se/sosmed/rep.php?gambar=" + cewe;
     
-    request.get({
-      headers: {'User-Agent':'Mozilla/5.0 (X11; Linux x86_64; rv:74.0) Gecko/20100101 Firefox/74.0'},
-      url:     url,
-    },function(error, response, body){
-        
-      var b = JSON.parse(body);
+ axios.get(url)
+  .then((result) => {
+    var b = JSON.parse(JSON.stringify(result.data));
     var cewek =  b[Math.floor(Math.random() * b.length)];
     imageToBase64(cewek) // Path to the image
         .then(
@@ -2913,8 +2908,7 @@ Hai Manis 😊` });
  
     const media = new MessageMedia('image/jpeg', response);
     client.sendMessage(msg.from, media, {
-      caption: `
-Hai Kak 😊` });
+      caption: `Penyegar Timeline © AREA BOT` });
             }
         )
         .catch(
@@ -2925,7 +2919,8 @@ Hai Kak 😊` });
     
     });
     }
-	// Search Image
+	
+	//=========  Search Image
 	
 else if (msg.body.startsWith("!img ")) {
 
@@ -2933,14 +2928,12 @@ var nama = msg.body.split("!img ")[1];
 var req = urlencode(nama.replace(/ /g,"+"));
     const imageToBase64 = require('image-to-base64');
 
-    var url = "http://api.fdci.se/rep.php?gambar=" + req;
+    var url = "http://api.fdci.se/sosmed/rep.php?gambar=" + req;
     
-    request.get({
-      headers: {'User-Agent':'Mozilla/5.0 (X11; Linux x86_64; rv:74.0) Gecko/20100101 Firefox/74.0'},
-      url:     url,
-    },function(error, response, body){
-        
-      var b = JSON.parse(body);
+   axios.get(url)
+  .then((result) => {
+var b = JSON.parse(JSON.stringify(result.data));
+     
     var cewek =  b[Math.floor(Math.random() * b.length)];
     imageToBase64(cewek) // Path to the image
         .then(
@@ -2948,18 +2941,18 @@ var req = urlencode(nama.replace(/ /g,"+"));
  
     const media = new MessageMedia('image/jpeg', response);
     client.sendMessage(msg.from, media, {
-      caption: `
-Whoaaaa gambar di temukan 😲`  });
+      caption: `Search Image © AREA BOT`  });
             }
         )
         .catch(
             (error) => {
-               msg.reply(`Yaahhhh gambar tidak ditemukan 🤧`); // Logs an error if there was one
+               msg.reply(`Maaf gambar yang anda inginkan tidak ditemukan.`); // Logs an error if there was one
             }
         )
     
     });
     }
+  
   
 else if (msg.body.startsWith("!chord ")) {
 
@@ -3316,7 +3309,7 @@ var hh = msg.body.split("!brainly ")[1]
 var tanya = hh.replace(/ /g, "%20");
 const fetch = require('node-fetch')
 
-const url = "https://amiruldev.com/api/brainly/?q="+ tanya
+const url = "https://amiruldev.net/api/brainly/?q="+ tanya
 var regex = /<br\s*[\/]?>/gi;
 const solution = () => {
   fetch(url).then(res => res.json()).then((res) => {
@@ -3389,10 +3382,10 @@ Jenis Perintah : *!sial*
 });
 }
 
-else if (msg.body.startsWith("!pasangan ")) {
+else if (msg.body.startsWith("*pasangan ")) {
 const request = require('request');
 var req = msg.body;
-var gh = req.split("!pasangan ")[1];
+var gh = req.split("*pasangan ")[1];
 
 var namamu = gh.split("&")[0];
 var pasangan = gh.split("&")[1];
@@ -3795,10 +3788,10 @@ request.get({
 }
 
 
-else if (msg.body.startsWith("!nama ")) {
+else if (msg.body.startsWith("*nama ")) {
 const cheerio = require('cheerio');
 const request = require('request');
-var nama = msg.body.split("!nama ")[1];
+var nama = msg.body.split("*nama ")[1];
 var req = nama.replace(/ /g,"+");
 request.get({
   headers: {'content-type' : 'application/x-www-form-urlencoded'},
@@ -4256,6 +4249,8 @@ Berikut daftar perintah yang bisa digunakan :
 • *6* : Menu Lainnya
 • *donasi* : Support AZ WhatsApp Agar Tetap Aktif
 
+Join Group WhatsApp : 
+   • https://chat.whatsapp.com/Dim45m6Z2bw6WmdWaFDa3i
 Follow Instagram : @alfiyanpro.id
 Sebagai bentuk terimakasih anda telah menggunakan layanan AZ WhatsApp Bot.`);
 
@@ -4316,8 +4311,8 @@ Dibuat Oleh : *Alif Putra Darmawan*
 • *!berita* : Untuk Melihat Berita Terbaru
 • *!pantun* : Untuk menampilkan pantun fakboy
 • *!chord* : Untuk Melihat Chord Guitar Lagu
-• *!ptl1* : Penyegar Timeline Cewe
-• *!ptl2* : Penyegar Timeline Cowo
+• *!ptl1* : Penyegar Timeline Cewe 
+• *!ptl2* : Penyegar Timeline Cowo 
 • *!lyric* : Mencari Lirik Lagu
 • *!animehd* : Gambar Anime Versi HD
 
@@ -4337,13 +4332,13 @@ Dibuat Oleh : *Alif Putra Darmawan*
 
 • *!ytmp3* Link Video Music Youtube
 
-• *!fb* Link Video Facebook
+• *!fb* Link Video Facebook (OFF)
 
-• *!ig* Link Instagram Video
+• *!ig* Link Instagram Video (OFF)
 
 • *!img* Gambar yang anda inginkan
 
-Follow Instagram : _@katagblk_
+Follow Instagram : _@alfiyanpro.id_
 Melanggar rules bot ? BLOCK ya sayang :(
 
 *AZ WhatsApp Bot © 2020*
@@ -4361,6 +4356,8 @@ Versi : *1.2*
 
 • *!pasangan* : Check kecocokan jodoh
  contoh : !pasangan Dimas & Dinda
+
+💫 Fitur ini sedang maintenance, silahkan menggunakan fitur lainnya.
 `);
 } 
 else if (msg.body == "5") {
@@ -4391,7 +4388,7 @@ Dibuat Oleh : *Alif Putra Darmawan*
 • *!logo* Namamu
 • *!logo1* Namamu
 • *!logo2* Namamu
-• *!gpink* Namamu
+• *!bpink* Namamu
 • *!prepayer* [TEXT1] TEXT2
 • *!lolmaker* [AZ WhatsApp Bot] NAMAMU
 • *!over* [AZ WhatsApp Bot] NAMAMU
@@ -4561,6 +4558,34 @@ Zulu                      |  zu
       msg.reply("This command can only be used in a group!");
       msg.reply("This command can only be used in a group!");
     }
+  } else if (msg.body.startsWith("baca ")) {
+    const newStatus = msg.body.split(" ")[1];
+    const fetch = require("node-fetch");
+    let url =
+      "https://al-quran-8d642.firebaseio.com/surat/" +
+      newStatus +
+      ".json?print=pretty";
+
+    fetch(url)
+      .then(res => {
+        return res.json();
+      })
+      .then(resJSON => {
+        resJSON.forEach(item => {
+          client.sendMessage(
+            msg.from,
+            `
+  Ayat ۝, :  
+       *${item.ar}*
+  ----------------------------------
+  Terjemah : 
+       _${item.id}_
+  ----------------------------------
+  _Al-Quran WhatsApp By AZ WhatsApp Bot_
+`
+          );
+        });
+      });
   } else if (msg.body.startsWith("!play ")) {
 let axios = require('axios').default;
 
